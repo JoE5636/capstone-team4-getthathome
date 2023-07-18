@@ -6,13 +6,13 @@ function typeStyles(type) {
   switch (type) {
     case "primary":
       return `
-        background-color: ${colors.pink[600]};
+        background-color: ${colors.pink[300]};
         color: ${colors.white};
         &:hover {
-          background-color: ${colors.pink[700]};
+          background-color: ${colors.pink[400]};
         }
         &:active {
-          background-color: ${colors.pink[800]};
+          background-color: ${colors.pink[500]};
         }
         &:focus {
           outline: 2px solid ${colors.pink[800]};
@@ -66,7 +66,7 @@ const StyledButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem ${({ rounded }) => (rounded ? "0.75rem" : "1rem")};
+  padding: 0.5rem ${({ rounded }) => (rounded ? "0.5rem" : "1rem")};
   background-color: ${colors.gray[200]};
   border-radius: ${({ rounded }) => (rounded ? "999px" : "0.5rem")};
   color: ${colors.gray[900]};
@@ -81,7 +81,7 @@ const StyledButton = styled.button`
     background-color: ${colors.gray[400]};
   }
   &:focus {
-    outline: 2px solid ${colors.gray[400]};
+    outline: 2px solid ${colors.pink[600]};
   }
   &:disabled {
     opacity: 60%;

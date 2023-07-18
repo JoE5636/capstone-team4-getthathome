@@ -78,7 +78,7 @@ const StyledButton = styled.button`
     background-color: ${colors.gray[300]};
   }
   &:active {
-    background-color: ${colors.gray[400]};
+    background-color: ${colors.gray[600]};
   }
   &:focus {
     outline: 2px solid ${colors.pink[600]};

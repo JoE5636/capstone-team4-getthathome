@@ -6,10 +6,10 @@ function typeStyles(type) {
   switch (type) {
     case "primary":
       return `
-        background-color: ${colors.pink[300]};
+        background-color: ${colors.pink[400]};
         color: ${colors.white};
         &:hover {
-          background-color: ${colors.pink[400]};
+          background-color: ${colors.pink[500]};
         }
         &:active {
           background-color: ${colors.pink[500]};
@@ -107,7 +107,7 @@ Button.propTypes = {
   size: PropTypes.oneOf(["sm", "lg"]),
   icon: PropTypes.element,
   isFullWidth: PropTypes.bool,
-  children: PropTypes.string,
+  // children: PropTypes.string,
   onClick: PropTypes.func,
   rounded: PropTypes.bool,
 };

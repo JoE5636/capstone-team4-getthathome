@@ -13,6 +13,7 @@ const Container = styled.div`
 const StyledInput = styled.input`
   background-color: ${colors.white};
   border: none;
+  width: ${({ isFullWidth }) => (isFullWidth ? "600px" : "366px")};
 `;
 
 const InputWrapper = styled.div`

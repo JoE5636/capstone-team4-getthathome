@@ -1,0 +1,179 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.layout{
+  width: 100%;
+
+  display: grid;
+  grid-template-areas:
+    "conteiner0" 
+    "conteiner1" 
+    "conteiner2" 
+    "conteiner3" 
+    "conteiner4" 
+    "conteiner5"; 
+    grid-template-columns: auto;
+  gap: 0px;
+  align-content: start;
+}
+
+.conteiner0{
+  grid-area: conteiner0;
+  width: 1440px;
+}
+
+.get{
+  width: 1200px;
+  gap: 10px;
+}
+
+.get_home{
+  margin: 16px 586px -16px 32px;
+}
+
+.lupa{
+  margin-top: -16px;
+}
+
+.button_login{
+  background-color: #F48FB1;
+  color: #FFFFFF;
+}
+
+.conteiner1 {
+  grid-area: conteiner1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("src/assets/Illustration 2.svg");
+  background-position: center;
+  background-size: cover;
+  width: 1440px;
+  height: 600px;
+ 
+}
+
+.content-wrapper {
+  text-align: center;
+}
+
+.title{
+  font-size: 64px;
+  text-align: center;
+  margin: -250px 50px 20px 50px;
+}
+
+.easiest{
+  margin-top: 0px;
+  font-size: 24px;
+}
+
+.conteiner2{
+  grid-area: conteiner2;
+  width: 1440px;
+  height: 672px;
+}
+
+
+
+.subconteiner{
+ text-align: center;
+ margin-top: 64px;
+}
+
+.conteiner_img{
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.find{
+  font-size: 14px;
+  color: #373737;
+  ;
+}
+
+.title2{
+  font-size: 36px;
+  color: #BF5F82;
+  
+}
+
+
+.conteiner3{
+  grid-area: conteiner3;
+  background-color: #f1d2dc;
+  width: 1440px;
+}
+
+.subconteiner3{
+  width: 823px;
+  margin: 64px 308.5px
+}
+
+.title3{
+font-size: 36px;
+}
+
+.create{
+  background-color: #F48FB1;
+  color: #FFFFFF;
+  border-color: none;
+  border-radius: 16px;
+}
+
+.conteiner4{
+  grid-area: conteiner4;
+  width: 1440px;
+}
+
+.title4{
+  font-size: 48px;
+  color: #BF5F82;
+  margin: 64px 542px 26px ;
+}
+
+.conteiner_img2{
+  margin: 0px 192px 64px 
+}
+
+.conteiner5{
+  grid-area: conteiner5;
+  width: 1440px;
+  height: 73px;
+  font-size: 14px;
+}
+
+.subconteiner4{
+  display: flex;
+  justify-content: center;
+  gap: 300px;
+}
+
+.subconteiner4{
+  flex-basis: 50%;
+  text-align: center;
+}
+
+.subconteiner5{
+  display: flex;
+  flex-direction:row;
+  align-items:center;
+  margin-left: 550px;
+  margin-top: -20px;
+  gap: 16px;
+}
+
+
+
+.conteiner_img{
+  margin: 0 8px
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:wght@400;700&display=swap');
+

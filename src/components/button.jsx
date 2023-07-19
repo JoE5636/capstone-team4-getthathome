@@ -15,7 +15,7 @@ function typeStyles(type) {
           background-color: ${colors.pink[500]};
         }
         &:focus {
-          outline: 2px solid ${colors.pink[800]};
+          outline: 2px solid ${colors.pink[600]};
         }
       `;
 
@@ -81,7 +81,7 @@ const StyledButton = styled.button`
     background-color: ${colors.gray[600]};
   }
   &:focus {
-    outline: 2px solid ${colors.pink[600]};
+    outline: 2px solid ${colors.pink[500]};
   }
   &:disabled {
     opacity: 60%;

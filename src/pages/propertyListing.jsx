@@ -181,8 +181,8 @@ function PropertyListing() {
               }),
               option: (baseStyles, state) => ({
                 ...baseStyles,
-                borderColor: state.isFocused
-                  ? `${colors.pink[400]}`
+                backgroundColor: state.isFocused
+                  ? `${colors.pink[100]}`
                   : `${colors.white}`,
               }),
             }}
@@ -213,8 +213,8 @@ function PropertyListing() {
               }),
               option: (baseStyles, state) => ({
                 ...baseStyles,
-                borderColor: state.isFocused
-                  ? `${colors.pink[400]}`
+                backgroundColor: state.isFocused
+                  ? `${colors.pink[100]}`
                   : `${colors.white}`,
               }),
             }}

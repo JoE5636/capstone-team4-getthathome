@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import homeLogo from "../assets/Logo.png";
+import homeLogo from "../assets/logo.png";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import { colors } from "../styles";

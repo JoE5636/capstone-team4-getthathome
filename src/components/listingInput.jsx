@@ -25,21 +25,8 @@ const InputWrapper = styled.div`
   gap: 8px;
 `;
 
-const StyledLabel = styled.label`
-  ${typography.text.xs};
-  text-transform: uppercase;
-`;
 
-function ListingInput({ icon, label, isFullWidth, ...rest }) {
-  return (
-    <Container isFullWidth={isFullWidth}>
-      {label && <StyledLabel>{label}</StyledLabel>}
-      <InputWrapper>
-        {icon}
-        <StyledInput {...rest} />
-      </InputWrapper>
-    </Container>
-  );
-}
+
+
 
 export default ListingInput;

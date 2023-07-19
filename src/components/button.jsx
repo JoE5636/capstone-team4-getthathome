@@ -92,11 +92,10 @@ const StyledButton = styled.button`
   ${(props) => sizeStyles(props.size, props.rounded)}
 `;
 
-function Button({ icon, children, ...props }) {
+function Button({ icon, ...props }) {
   return (
     <StyledButton {...props}>
       {icon}
-      {children}
     </StyledButton>
   );
 }

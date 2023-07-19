@@ -58,13 +58,13 @@ export const typography = {
 
 for (const size in typography.text) {
   typography.text[size] += `
-  font-family: ${fonts.primary};
+  font-family: ${fonts.secondary};
   `;
 }
 
 for (const size in typography.head) {
   typography.head[size] += `
-  font-family: ${fonts.secondary};
+  font-family: ${fonts.primary};
   font-weight: 600;
   `;
 }

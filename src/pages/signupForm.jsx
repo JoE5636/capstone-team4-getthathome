@@ -28,7 +28,7 @@ const SubTitle = styled.h1`
 
 const FormWrapper = styled.div`
   width: 388px;
-  height: 468px;
+  height: 490px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,6 +47,7 @@ const InputWrapper = styled.div`
   align-items: center;
   gap: 16px;
   background-color: ${colors.white};
+  margin-bottom: 10px;
 `;
 
 function SignUpForm() {
@@ -96,6 +97,9 @@ function SignUpForm() {
             isFullWidth={false}
           />
         </InputWrapper>
+        <Button style={{ borderRadius: "10px" }} type="primary">
+          CREATE ACCOUNT
+        </Button>
       </FormWrapper>
     </Container>
   );

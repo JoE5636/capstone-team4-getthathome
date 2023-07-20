@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import homeLogo from "../assets/logo.png";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
@@ -21,14 +22,15 @@ const Nav = styled.div`
   justify-content: space-between;
   padding: 5px 32px;
 `;
+const PathLink = styled(Link)``;
 
-function Header() {
+function Header({ onLoginClick, onOtherClick }) {
   return (
     <Wrapper>
       <Nav>
-        <div>
+        <PathLink style={{ textDecoration: "none" }} to={"/home"}>
           <img src={homeLogo}></img>
-        </div>
+        </PathLink>
         <div style={{ display: "flex", gap: "16px" }}>
           <Button style={{ backgroundColor: `${colors.white}` }}>
             <BiSearch
@@ -45,11 +47,12 @@ function Header() {
               border: `1px solid ${colors.pink[500]}`,
               backgroundColor: `${colors.white}`,
             }}
+            onClick={onOtherClick}
           >
             <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
             JOIN
           </Button>
-          <Button type="primary" rounded>
+          <Button type="primary" rounded onClick={onLoginClick}>
             <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
             LOGIN
           </Button>

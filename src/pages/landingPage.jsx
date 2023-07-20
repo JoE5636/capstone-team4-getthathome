@@ -1,11 +1,14 @@
 import styled from "@emotion/styled";
 import Select from "react-select";
+import { useNavigate } from "react-router-dom";
 import HeroBack from "../assets/illustration2.svg";
 import Button from "../components/button";
 import { colors } from "../styles";
 import { typography } from "../styles";
 import PropertyCard from "../components/propertyCard";
 import TeamSection from "../components/TeamSection";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const Container = styled.div`
   width: 100%;
@@ -124,130 +127,147 @@ function LandingPage() {
     { value: "buy", label: "Buy" },
   ];
 
+  const navigate = useNavigate();
+
+  function handleSignupClick() {
+    navigate("/role");
+  }
+
   return (
-    <Container>
-      <Hero>
-        <TextWrapper>
-          <Title>Meet your new Home</Title>
-          <SubTitle>The easiest way to find where you belong</SubTitle>
-          <OptionsWrapper>
-            <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
-              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-                i'm looking for
-              </label>
-              <Select
-                options={typeOptions}
-                styles={{
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isFocused
-                      ? `${colors.white}`
-                      : `${colors.white}`,
-                  }),
-                  indicatorSeparator: () => ({
-                    appearance: "none",
-                  }),
-                  container: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isSelected
-                      ? `${colors.white}`
-                      : `${colors.white}`,
-                    width: "160px",
-                  }),
-                  option: (baseStyles, state) => ({
-                    ...baseStyles,
-                    backgroundColor: state.isFocused
-                      ? `${colors.pink[100]}`
-                      : `${colors.white}`,
-                  }),
+    <>
+      <Header onOtherClick={handleSignupClick} />
+      <Container>
+        <Hero>
+          <TextWrapper>
+            <Title>Meet your new Home</Title>
+            <SubTitle>The easiest way to find where you belong</SubTitle>
+            <OptionsWrapper>
+              <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
+                <label
+                  style={{ textTransform: "uppercase", fontSize: ".75rem" }}
+                >
+                  i'm looking for
+                </label>
+                <Select
+                  options={typeOptions}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      borderColor: state.isFocused
+                        ? `${colors.white}`
+                        : `${colors.white}`,
+                    }),
+                    indicatorSeparator: () => ({
+                      appearance: "none",
+                    }),
+                    container: (baseStyles, state) => ({
+                      ...baseStyles,
+                      borderColor: state.isSelected
+                        ? `${colors.white}`
+                        : `${colors.white}`,
+                      width: "160px",
+                    }),
+                    option: (baseStyles, state) => ({
+                      ...baseStyles,
+                      backgroundColor: state.isFocused
+                        ? `${colors.pink[100]}`
+                        : `${colors.white}`,
+                    }),
+                  }}
+                />
+              </div>
+              <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
+                <label
+                  style={{ textTransform: "uppercase", fontSize: ".75rem" }}
+                >
+                  i want to
+                </label>
+                <Select
+                  options={operationOptions}
+                  styles={{
+                    control: (baseStyles, state) => ({
+                      ...baseStyles,
+                      borderColor: state.isFocused
+                        ? `${colors.white}`
+                        : `${colors.white}`,
+                    }),
+                    indicatorSeparator: () => ({
+                      appearance: "none",
+                    }),
+                    container: (baseStyles, state) => ({
+                      ...baseStyles,
+                      borderColor: state.isSelected
+                        ? `${colors.white}`
+                        : `${colors.white}`,
+                      width: "160px",
+                    }),
+                    option: (baseStyles, state) => ({
+                      ...baseStyles,
+                      backgroundColor: state.isFocused
+                        ? `${colors.pink[100]}`
+                        : `${colors.white}`,
+                    }),
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  borderRight: `1px solid ${colors.gray[300]}`,
                 }}
-              />
-            </div>
-            <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
-              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-                i want to
-              </label>
-              <Select
-                options={operationOptions}
-                styles={{
-                  control: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isFocused
-                      ? `${colors.white}`
-                      : `${colors.white}`,
-                  }),
-                  indicatorSeparator: () => ({
-                    appearance: "none",
-                  }),
-                  container: (baseStyles, state) => ({
-                    ...baseStyles,
-                    borderColor: state.isSelected
-                      ? `${colors.white}`
-                      : `${colors.white}`,
-                    width: "160px",
-                  }),
-                  option: (baseStyles, state) => ({
-                    ...baseStyles,
-                    backgroundColor: state.isFocused
-                      ? `${colors.pink[100]}`
-                      : `${colors.white}`,
-                  }),
+              >
+                <label
+                  style={{ textTransform: "uppercase", fontSize: ".75rem" }}
+                >
+                  where
+                </label>
+                <SearchInput type="text" placeholder="Favorite district" />
+              </div>
+              <div
+                style={{
+                  height: "72px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                borderRight: `1px solid ${colors.gray[300]}`,
-              }}
-            >
-              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-                where
-              </label>
-              <SearchInput type="text" placeholder="Favorite district" />
-            </div>
-            <div
-              style={{
-                height: "72px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Button style={{ padding: "10px" }} type="primary">
-                SEARCH
-              </Button>
-            </div>
-          </OptionsWrapper>
-        </TextWrapper>
-      </Hero>
-      <PropertyWrapper>
-        <Wrapper>
-          <p>Find an Apartment you Love</p>
-          <TitleProp>Homes for rent at the best prices</TitleProp>
-          <PropertySample>
-            <PropertyCard />
-            <PropertyCard />
-            <PropertyCard />
-          </PropertySample>
-        </Wrapper>
-      </PropertyWrapper>
-      <ActionDiv>
-        <TitleAction>
-          Getting someone to rent your apartment
-          <br></br>
-          has never been this easy
-        </TitleAction>
-        <Button
-          style={{ padding: "20px", borderRadius: "10px" }}
-          type="primary"
-        >
-          CREATE AN ACCOUNT NOW
-        </Button>
-      </ActionDiv>
-      <TeamSection></TeamSection>
-    </Container>
+              >
+                <Button style={{ padding: "10px" }} type="primary">
+                  SEARCH
+                </Button>
+              </div>
+            </OptionsWrapper>
+          </TextWrapper>
+        </Hero>
+        <PropertyWrapper>
+          <Wrapper>
+            <p>Find an Apartment you Love</p>
+            <TitleProp>Homes for rent at the best prices</TitleProp>
+            <PropertySample>
+              <PropertyCard />
+              <PropertyCard />
+              <PropertyCard />
+            </PropertySample>
+          </Wrapper>
+        </PropertyWrapper>
+        <ActionDiv>
+          <TitleAction>
+            Getting someone to rent your apartment
+            <br></br>
+            has never been this easy
+          </TitleAction>
+          <Button
+            style={{ padding: "20px", borderRadius: "10px" }}
+            type="primary"
+            onClick={handleSignupClick}
+          >
+            CREATE AN ACCOUNT NOW
+          </Button>
+        </ActionDiv>
+        <TeamSection></TeamSection>
+      </Container>
+      <Footer></Footer>
+    </>
   );
 }
 

@@ -1,8 +1,12 @@
 import styled from "@emotion/styled";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../styles";
 import { typography } from "../styles";
 import LandlordBack from "../assets/rafiki.svg";
 import SeekerBack from "../assets/pana.svg";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const Container = styled.div`
   width: 100vw;
@@ -82,23 +86,50 @@ const ButtonText = styled.p`
 `;
 
 function RoleSelect() {
+  const navigate = useNavigate();
+  const [role, setRole] = useState(NaN);
+
+  function handleLanlordClick() {
+    setRole(0);
+  }
+
+  function handleSeekerClick() {
+    setRole(1);
+  }
+
+  useEffect(() => {
+    if (!isNaN(role)) {
+      navigate(`/signup/${role}`);
+    }
+  }, [role, navigate]);
+
+  console.log(role);
+
+  function handleSignupClick() {
+    navigate("/role");
+  }
+
   return (
-    <Container>
-      <SubTitle>Selecciona el perfil con el que te identificas</SubTitle>
-      <Title>¿Que estas buscando?</Title>
-      <Wrapper>
-        <ButtonWrapper>
-          <LandlordButon />
-          <ButtonText>Landlord</ButtonText>
-          <ButtonText>You want to rent or sell a home</ButtonText>
-        </ButtonWrapper>
-        <ButtonWrapper>
-          <SeekerButon />
-          <ButtonText>Home Seeker</ButtonText>
-          <ButtonText>You want to rent or sell a home</ButtonText>
-        </ButtonWrapper>
-      </Wrapper>
-    </Container>
+    <>
+      <Header onOtherClick={handleSignupClick} />
+      <Container>
+        <SubTitle>Select the profile you identify with</SubTitle>
+        <Title>¿What are you looking for?</Title>
+        <Wrapper>
+          <ButtonWrapper>
+            <LandlordButon onClick={handleLanlordClick} />
+            <ButtonText>Landlord</ButtonText>
+            <ButtonText>You want to rent or sell a home</ButtonText>
+          </ButtonWrapper>
+          <ButtonWrapper>
+            <SeekerButon onClick={handleSeekerClick} />
+            <ButtonText>Home Seeker</ButtonText>
+            <ButtonText>You want to rent or sell a home</ButtonText>
+          </ButtonWrapper>
+        </Wrapper>
+      </Container>
+      <Footer />
+    </>
   );
 }
 

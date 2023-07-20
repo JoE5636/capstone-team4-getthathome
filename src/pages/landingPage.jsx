@@ -133,16 +133,9 @@ function LandingPage() {
     navigate("/role");
   }
 
-  function handleSearchClick() {
-    navigate("/properties");
-  }
-
   return (
     <>
-      <Header
-        onOtherClick={handleSignupClick}
-        onSearchClick={handleSearchClick}
-      />
+      <Header onOtherClick={handleSignupClick} />
       <Container>
         <Hero>
           <TextWrapper>
@@ -163,6 +156,7 @@ function LandingPage() {
                       borderColor: state.isFocused
                         ? `${colors.white}`
                         : `${colors.white}`,
+                      zIndex: 0,
                     }),
                     indicatorSeparator: () => ({
                       appearance: "none",
@@ -173,6 +167,7 @@ function LandingPage() {
                         ? `${colors.white}`
                         : `${colors.white}`,
                       width: "160px",
+                      zIndex: 0,
                     }),
                     option: (baseStyles, state) => ({
                       ...baseStyles,
@@ -197,6 +192,7 @@ function LandingPage() {
                       borderColor: state.isFocused
                         ? `${colors.white}`
                         : `${colors.white}`,
+                      zIndex: 0,
                     }),
                     indicatorSeparator: () => ({
                       appearance: "none",
@@ -207,6 +203,7 @@ function LandingPage() {
                         ? `${colors.white}`
                         : `${colors.white}`,
                       width: "160px",
+                      zIndex: 0,
                     }),
                     option: (baseStyles, state) => ({
                       ...baseStyles,

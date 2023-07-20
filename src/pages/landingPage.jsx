@@ -133,9 +133,16 @@ function LandingPage() {
     navigate("/role");
   }
 
+  function handleSearchClick() {
+    navigate("/properties");
+  }
+
   return (
     <>
-      <Header onOtherClick={handleSignupClick} />
+      <Header
+        onOtherClick={handleSignupClick}
+        onSearchClick={handleSearchClick}
+      />
       <Container>
         <Hero>
           <TextWrapper>

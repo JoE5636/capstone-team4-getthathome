@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import LandingPage from "./pages/landingPage";
 import RoleSelect from "./pages/roleSelection";
 import SignUpForm from "./pages/signupForm";
+import PropertiesList from "./pages/propertyList";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,7 +19,8 @@ export default function UnauthenticatedApp() {
           <Route path="home" element={<LandingPage />} />
           <Route path="role" element={<RoleSelect />} />
           <Route path="signup/:role" element={<SignUpForm />} />
-          <Route path="*" element={<Navigate to="/login" replace={true} />} />
+          <Route path="properties" element={<PropertiesList />} />
+          <Route path="*" element={<Navigate to="/home" replace={true} />} />
         </Route>
       </Routes>
     </Wrapper>

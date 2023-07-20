@@ -24,7 +24,7 @@ const Nav = styled.div`
 `;
 const PathLink = styled(Link)``;
 
-function Header({ onLoginClick, onOtherClick }) {
+function Header({ onLoginClick, onOtherClick, onSearchClick }) {
   return (
     <Wrapper>
       <Nav>
@@ -32,7 +32,10 @@ function Header({ onLoginClick, onOtherClick }) {
           <img src={homeLogo}></img>
         </PathLink>
         <div style={{ display: "flex", gap: "16px" }}>
-          <Button style={{ backgroundColor: `${colors.white}` }}>
+          <Button
+            onClick={onSearchClick}
+            style={{ backgroundColor: `${colors.white}` }}
+          >
             <BiSearch
               style={{
                 width: "24px",

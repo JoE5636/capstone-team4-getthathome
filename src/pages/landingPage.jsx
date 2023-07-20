@@ -33,6 +33,18 @@ const TextWrapper = styled.div`
   gap: 8px;
 `;
 
+const OptionsWrapper = styled.div`
+  width: 800px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 64px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+  padding: 8px 16px;
+`;
+
 const Title = styled.h1`
   ${typography.head.xxl};
   color: ${colors.black};
@@ -95,13 +107,119 @@ const ActionDiv = styled.div`
   gap: 48px;
 `;
 
+const SearchInput = styled.input`
+  padding: 8px 12px;
+  border: none;
+  width: 260px;
+`;
+
 function LandingPage() {
+  const typeOptions = [
+    { value: "apartment", label: "Apartments" },
+    { value: "house", label: "House" },
+  ];
+
+  const operationOptions = [
+    { value: "rent", label: "Rent" },
+    { value: "buy", label: "Buy" },
+  ];
+
   return (
     <Container>
       <Hero>
         <TextWrapper>
           <Title>Meet your new Home</Title>
           <SubTitle>The easiest way to find where you belong</SubTitle>
+          <OptionsWrapper>
+            <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
+              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+                i'm looking for
+              </label>
+              <Select
+                options={typeOptions}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused
+                      ? `${colors.white}`
+                      : `${colors.white}`,
+                  }),
+                  indicatorSeparator: () => ({
+                    appearance: "none",
+                  }),
+                  container: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isSelected
+                      ? `${colors.white}`
+                      : `${colors.white}`,
+                    width: "160px",
+                  }),
+                  option: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: state.isFocused
+                      ? `${colors.pink[100]}`
+                      : `${colors.white}`,
+                  }),
+                }}
+              />
+            </div>
+            <div style={{ borderRight: `1px solid ${colors.gray[300]}` }}>
+              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+                i want to
+              </label>
+              <Select
+                options={operationOptions}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused
+                      ? `${colors.white}`
+                      : `${colors.white}`,
+                  }),
+                  indicatorSeparator: () => ({
+                    appearance: "none",
+                  }),
+                  container: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isSelected
+                      ? `${colors.white}`
+                      : `${colors.white}`,
+                    width: "160px",
+                  }),
+                  option: (baseStyles, state) => ({
+                    ...baseStyles,
+                    backgroundColor: state.isFocused
+                      ? `${colors.pink[100]}`
+                      : `${colors.white}`,
+                  }),
+                }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                borderRight: `1px solid ${colors.gray[300]}`,
+              }}
+            >
+              <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+                where
+              </label>
+              <SearchInput type="text" placeholder="Favorite district" />
+            </div>
+            <div
+              style={{
+                height: "72px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button style={{ padding: "10px" }} type="primary">
+                SEARCH
+              </Button>
+            </div>
+          </OptionsWrapper>
         </TextWrapper>
       </Hero>
       <PropertyWrapper>

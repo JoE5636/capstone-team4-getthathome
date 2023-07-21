@@ -9,6 +9,8 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiBed, BiBath, BiArea, BiEdit } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 import Button from "../components/button";
 import { colors } from "../styles";
@@ -72,7 +74,7 @@ const Option = () => {
   );
 };
 
-/////////////////////////////////////////// 
+///////////////////////////////////////////
 
 const ImageSliderContainer = styled.div`
   padding-top: 40px;
@@ -90,10 +92,10 @@ const ImageContainer = styled.img`
   object-fit: cover;
 `;
 
-const ImageSlider = ({photos}) => {
+const ImageSlider = ({ photos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   // console.log({data:photos})
-  const sliders = photos.map(url => ({ url }));
+  const sliders = photos.map((url) => ({ url }));
   // [
   //   {
   //     url: "https://www.construyehogar.com/wp-content/uploads/2014/06/Plano-de-departamento-peque%C3%B1o-Marsh-Properties.jpeg",
@@ -217,23 +219,24 @@ const PropertyDetail = () => {
   const { id } = useParams();
   const [properties, setProperties] = useState(null);
 
-    useEffect(() => {
-      const fetchPropertyData = async () => {
-        try {
-          const data = await fetchProperty(id);
-          setProperties(data);
-        } catch (error) {
-          console.error("Error fetching property:", error);
-        }
-      };
-      fetchPropertyData();
-    }, [id]);
+  useEffect(() => {
+    const fetchPropertyData = async () => {
+      try {
+        const data = await fetchProperty(id);
+        setProperties(data);
+      } catch (error) {
+        console.error("Error fetching property:", error);
+      }
+    };
+    fetchPropertyData();
+  }, [id]);
   if (!properties || !properties.photos) {
     return <div></div>;
   }
   console.log("Images:", properties.photos);
   return (
     <>
+      <Header />
       <Container>
         <LeftContent>
           <LeftContentWrapper>
@@ -266,18 +269,20 @@ const PropertyDetail = () => {
                     <BiArea size={25} />
                     <p>{properties.area} m2</p>
                   </li>
-                  {properties.pets ? (<li>
-                    <FaPaw size={25} />
-                    <p>Pets allowed</p>
-                  </li>) : (<></>)}
+                  {properties.pets ? (
+                    <li>
+                      <FaPaw size={25} />
+                      <p>Pets allowed</p>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
                 </ul>
               </MainFeatures>
               <About>
                 <h3>About this property</h3>
 
-                <p>
-                  {properties.description}
-                </p>
+                <p>{properties.description}</p>
               </About>
               <Location>
                 <h3>Location</h3>
@@ -299,6 +304,7 @@ const PropertyDetail = () => {
           <Option></Option>
         </RightContent>
       </Container>
+      <Footer />
     </>
   );
 };

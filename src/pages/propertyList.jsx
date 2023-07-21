@@ -120,6 +120,7 @@ function PropertiesList() {
           <PropertiesWrapper>
             {properties.map((property) => {
               const {
+                id,
                 operation,
                 photos,
                 price,
@@ -131,6 +132,7 @@ function PropertiesList() {
               } = property;
 
               const propertyProps = {
+                id,
                 operation,
                 photos,
                 price,

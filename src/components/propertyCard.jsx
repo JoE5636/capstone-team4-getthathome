@@ -6,6 +6,7 @@ import { BiBed, BiBath, BiArea, BiEdit } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
 import { colors } from "../styles";
+import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
   margin: 10px;
@@ -49,6 +50,7 @@ const ForSale = styled.span`
 `;
 
 const CardImg = styled.img`
+  cursor:pointer;
   width: 300px;
   height: 200px;
   border-top-left-radius: 8px;
@@ -116,6 +118,7 @@ const ActionSpan = styled.span`
 `;
 
 function PropertyCard({
+  id,
   operation,
   photos,
   price,
@@ -134,7 +137,9 @@ function PropertyCard({
             {operation}
           </ForRental>
         </ForRentalWrap>
-        <CardImg src={photos} alt="" />
+        <Link to={`/properties/${id}`}>
+          <CardImg src={photos} alt="" />
+        </Link>
       </div>
 
       <InfoContainer>

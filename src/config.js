@@ -1,2 +1,3 @@
-export const tokenKey = "3f07cefeae68f0ba4b76001efab093c4";
+export const tokenKey = "react_gethome";
 export const BASE_URI = "http://127.0.0.1:3000/";
+export const User = "User";

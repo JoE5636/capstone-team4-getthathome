@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { colors } from "../styles";
 import { typography } from "../styles";
@@ -11,7 +12,7 @@ const SubTitle = styled.h1`
   font-weight: 300;
 `;
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   position: relative;
   width: 388px;
   height: 256;
@@ -26,10 +27,33 @@ const FormWrapper = styled.div`
   z-index: 100;
 `;
 
-function LoginModal({ onSubmitClick }) {
+function LoginModal({ onSubmit }) {
+  const [formData, setFormData] = useState({
+    email: "",
+
+    password: "",
+  });
+
+  console.log(formData);
+
+  const { email, password } = formData;
+  // const [confirmation, setConfirmation] = useState(null);
+
+  function handleFormChange(event) {
+    const { name, value } = event.target;
+    console.log(value);
+    // toast("adsasd")
+    setFormData({ ...formData, [name]: value });
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    onSubmit(formData);
+  }
+
   return (
     <div>
-      <FormWrapper>
+      <FormWrapper onSubmit={handleSubmit}>
         <SubTitle>Login</SubTitle>
 
         <ListingInput
@@ -37,19 +61,23 @@ function LoginModal({ onSubmitClick }) {
           name="email"
           label={"Email"}
           type="email"
+          value={email}
           placeholder="example@mail.com"
           isFullWidth={false}
+          onChange={handleFormChange}
         />
         <ListingInput
           id="password"
           name="password"
           label={"Password"}
           type="password"
+          value={password}
           placeholder="******"
           isFullWidth={false}
+          onChange={handleFormChange}
         />
 
-        <Button type="primary" rounded onClick={onSubmitClick}>
+        <Button type="primary" rounded>
           <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
           LOGIN
         </Button>

@@ -11,8 +11,8 @@ export async function getUser() {
 
 const credentials = {
   role: 1,
-  name: "testino4",
-  email: "test4@mail.com",
+  name: "testino5",
+  email: "test5@mail.com",
   phone: "123456789",
   password_digest: "qwerty",
 };

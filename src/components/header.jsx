@@ -10,6 +10,7 @@ import { BiSearch } from "react-icons/bi";
 import { colors } from "../styles";
 import Button from "./button";
 import LoginModal from "./loginModal";
+import { login } from "../services/session/sessionService";
 
 const Wrapper = styled.header`
   display: flex;
@@ -78,6 +79,10 @@ function Header({ onLoginClick, onOtherClick }) {
     if (event.target === event.currentTarget) {
       handleCloseModal();
     }
+  }
+  function handleLoginModalSubmit(formData) {
+    login(formData);
+    handleCloseModal();
   }
 
   return (
@@ -166,7 +171,7 @@ function Header({ onLoginClick, onOtherClick }) {
       </Nav>
       {isOpenLogModal ? (
         <Modal onClick={handleModalClick}>
-          <LoginModal onSubmitClick={handleCloseModal} />
+          <LoginModal onSubmit={handleLoginModalSubmit} />
         </Modal>
       ) : null}
     </Wrapper>

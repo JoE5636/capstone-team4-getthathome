@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
-// import { Route, Routes, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getUser } from "./services/user/userService";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import AuthenticatedLandlord from "./AuthenticatedLandlord";
 import AuthenticatedSeeker from "./AuthenticatedSeeker";
@@ -10,12 +11,23 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const user = { role: 1, value: true };
+  // const user = { role: 0, value: false };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getUser()
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  console.log(user);
 
   return (
     <Wrapper>
-      {user.value === true ? (
-        user.role === 0 ? (
+      {user !== null ? (
+        user.role === 1 ? (
           <AuthenticatedLandlord />
         ) : (
           <AuthenticatedSeeker />

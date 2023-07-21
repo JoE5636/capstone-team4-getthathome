@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getUser } from "../services/user/userService";
 import homeLogo from "../assets/logo.png";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
@@ -46,6 +47,15 @@ const PathLink = styled(Link)``;
 
 function Header({ onLoginClick, onOtherClick }) {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getUser()
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
   const [isOpenLogModal, setIsOpenLogModal] = useState(false);
   const navigate = useNavigate();
 
@@ -102,7 +112,7 @@ function Header({ onLoginClick, onOtherClick }) {
               JOIN
             </Button>
           )}
-          {user === "landlord" && (
+          {user?.role === 1 && (
             <Button
               rounded
               style={{
@@ -116,7 +126,8 @@ function Header({ onLoginClick, onOtherClick }) {
               My Properties
             </Button>
           )}
-          {user === "seeker" && (
+
+          {user?.role === 2 && (
             <Button
               rounded
               style={{
@@ -130,19 +141,22 @@ function Header({ onLoginClick, onOtherClick }) {
               Saved Properties
             </Button>
           )}
+
           {user === null && (
             <Button type="primary" rounded onClick={handleLoginClick}>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               LOGIN
             </Button>
           )}
-          {user === "landlord" && (
+
+          {user?.role === 1 && (
             <Button type="primary" rounded>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               PROFILE
             </Button>
           )}
-          {user === "seeker" && (
+
+          {user?.role === 2 && (
             <Button type="primary" rounded>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               PROFILE

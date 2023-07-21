@@ -90,11 +90,11 @@ function RoleSelect() {
   const [role, setRole] = useState(NaN);
 
   function handleLanlordClick() {
-    setRole(0);
+    setRole(1);
   }
 
   function handleSeekerClick() {
-    setRole(1);
+    setRole(2);
   }
 
   useEffect(() => {

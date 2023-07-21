@@ -87,9 +87,9 @@ function SignUpForm() {
     navigate("/role");
   }
 
-  function handleSubmit(formData) {
-    // console.log("Sillega");
+  function handleSubmit(event) {
     createUser(formData);
+    navigate("/home");
   }
 
   return (

@@ -2,9 +2,25 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 
 import { colors } from "../styles";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
-const NavStyledContainer = styled.div``;
-const NavStyledWrapper = styled.div``;
+const NavStyledContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  padding-top: 10px;
+`;
+const NavStyledWrapper = styled.div`
+  width: 1190px;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  ${"" /* align-items: center; */}
+  flex-direction: column;
+
+  background-color: ${colors.white};
+`;
 const NavStyledOptions = styled.ul`
   list-style: none;
   display: flex;
@@ -30,6 +46,7 @@ const NavStyledContent = styled.div``;
 
 const NavStyled = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
+  const [user, setUser] = useState("seeker");
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -38,29 +55,56 @@ const NavStyled = () => {
   return (
     <NavStyledContainer>
       <NavStyledWrapper>
-        <NavStyledOptions>
-          <NavStyleOption
-            isSelected={selectedOption === "opcion1"}
-            onClick={() => handleOptionChange("opcion1")}
-          >
-            FAVORITES
-            <Subrayado isSelected={selectedOption === "opcion1"} />
-          </NavStyleOption>
-          <NavStyleOption
-            isSelected={selectedOption === "opcion2"}
-            onClick={() => handleOptionChange("opcion2")}
-          >
-            CONTACTED
-            <Subrayado isSelected={selectedOption === "opcion2"} />
-          </NavStyleOption>
-        </NavStyledOptions>
-        <NavStyledContent>
-          {selectedOption === "opcion1" ? (
-            <h1>Favorites</h1>
-          ) : (
-            <h1>Contacted</h1>
-          )}
-        </NavStyledContent>
+        {user === "seeker" && (
+          <NavStyledOptions>
+            <NavStyleOption
+              isSelected={selectedOption === "opcion1"}
+              onClick={() => handleOptionChange("opcion1")}
+            >
+              FAVORITES
+              <Subrayado isSelected={selectedOption === "opcion1"} />
+            </NavStyleOption>
+            <NavStyleOption
+              isSelected={selectedOption === "opcion2"}
+              onClick={() => handleOptionChange("opcion2")}
+            >
+              CONTACTED
+              <Subrayado isSelected={selectedOption === "opcion2"} />
+            </NavStyleOption>
+          </NavStyledOptions>
+        )}
+        {user === "landlord" && (
+          <NavStyledOptions>
+            <NavStyleOption
+              isSelected={selectedOption === "opcion1"}
+              onClick={() => handleOptionChange("opcion1")}
+            >
+              ACTIVE
+              <Subrayado isSelected={selectedOption === "opcion1"} />
+            </NavStyleOption>
+            <NavStyleOption
+              isSelected={selectedOption === "opcion2"}
+              onClick={() => handleOptionChange("opcion2")}
+            >
+              CLOSED
+              <Subrayado isSelected={selectedOption === "opcion2"} />
+            </NavStyleOption>
+          </NavStyledOptions>
+        )}
+        {user === "seeker" && (
+          <NavStyledContent>
+            {selectedOption === "opcion1" ? (
+              <h1>Favorites</h1>
+            ) : (
+              <h1>Contacted</h1>
+            )}
+          </NavStyledContent>
+        )}
+        {user === "landlord" && (
+          <NavStyledContent>
+            {selectedOption === "opcion1" ? <h1>Active</h1> : <h1>Closed</h1>}
+          </NavStyledContent>
+        )}
       </NavStyledWrapper>
     </NavStyledContainer>
   );
@@ -69,7 +113,9 @@ const NavStyled = () => {
 const Properties = () => {
   return (
     <>
+      <Header />
       <NavStyled />
+      <Footer />
     </>
   );
 };

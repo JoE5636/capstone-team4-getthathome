@@ -67,6 +67,7 @@ const PropertyInfo = styled.div`
 `;
 
 const InfoContainer = styled.div`
+  
   display: flex;
   padding: 8px;
   flex-direction: column;
@@ -78,6 +79,7 @@ const AddressInfo = styled.div`
 `;
 
 const PillsContainer = styled.div`
+  padding-left: 8px;
   display: flex;
   flex-direction: row;
   gap: 8px;

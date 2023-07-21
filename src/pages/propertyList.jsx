@@ -1,5 +1,6 @@
 import Select from "react-select";
 import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 import { colors } from "../styles";
 import Header from "../components/header";
 import Footer from "../components/footer";
@@ -41,6 +42,11 @@ const ButtonsWrapper = styled.div`
 `;
 
 function PropertiesList() {
+  const navigate = useNavigate();
+  function handleSignupClick() {
+    navigate("/role");
+  }
+
   const operationOptions = [
     { value: "rent", label: "Rent" },
     { value: "buy", label: "Buy" },
@@ -49,7 +55,7 @@ function PropertiesList() {
 
   return (
     <>
-      <Header />
+      <Header onOtherClick={handleSignupClick} />
       <Container>
         <MainWrapper>
           <FiltersWrapper>

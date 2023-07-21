@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import homeLogo from "../assets/logo.png";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
+import { RiHome8Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { colors } from "../styles";
 import Button from "./button";
@@ -41,6 +43,7 @@ const Modal = styled.div`
 const PathLink = styled(Link)``;
 
 function Header({ onLoginClick, onOtherClick }) {
+  const [user, setUser] = useState("seeker");
   const [isOpenLogModal, setIsOpenLogModal] = useState(false);
   const navigate = useNavigate();
 
@@ -53,6 +56,10 @@ function Header({ onLoginClick, onOtherClick }) {
 
   function handleCloseModal() {
     setIsOpenLogModal(false);
+  }
+
+  function handleMyPropClick() {
+    navigate("/myproperties");
   }
 
   return (
@@ -74,21 +81,65 @@ function Header({ onLoginClick, onOtherClick }) {
             />
             FIND A HOME
           </Button>
-          <Button
-            rounded
-            style={{
-              border: `1px solid ${colors.pink[500]}`,
-              backgroundColor: `${colors.white}`,
-            }}
-            onClick={onOtherClick}
-          >
-            <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
-            JOIN
-          </Button>
-          <Button type="primary" rounded onClick={handleLoginClick}>
-            <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
-            LOGIN
-          </Button>
+          {user === null && (
+            <Button
+              rounded
+              style={{
+                border: `1px solid ${colors.pink[500]}`,
+                backgroundColor: `${colors.white}`,
+              }}
+              onClick={onOtherClick}
+            >
+              <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
+              JOIN
+            </Button>
+          )}
+          {user === "landlord" && (
+            <Button
+              rounded
+              style={{
+                border: `1px solid ${colors.pink[400]}`,
+                backgroundColor: `${colors.pink[400]}`,
+                color: `${colors.white}`,
+              }}
+              onClick={handleMyPropClick}
+            >
+              <RiHome8Line style={{ width: "24px", height: "24px" }} />
+              My Properties
+            </Button>
+          )}
+          {user === "seeker" && (
+            <Button
+              rounded
+              style={{
+                border: `1px solid ${colors.pink[400]}`,
+                backgroundColor: `${colors.pink[400]}`,
+                color: `${colors.white}`,
+              }}
+              onClick={handleMyPropClick}
+            >
+              <AiFillHeart style={{ width: "24px", height: "24px" }} />
+              Saved Properties
+            </Button>
+          )}
+          {user === null && (
+            <Button type="primary" rounded onClick={handleLoginClick}>
+              <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
+              LOGIN
+            </Button>
+          )}
+          {user === "landlord" && (
+            <Button type="primary" rounded>
+              <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
+              PROFILE
+            </Button>
+          )}
+          {user === "seeker" && (
+            <Button type="primary" rounded>
+              <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
+              PROFILE
+            </Button>
+          )}
         </div>
       </Nav>
       {isOpenLogModal ? (

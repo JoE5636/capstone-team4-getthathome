@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-
+import { useNavigate } from "react-router-dom";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 import { colors } from "../styles";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Button from "../components/button";
 
 const NavStyledContainer = styled.div`
   width: 100vw;
@@ -46,12 +48,16 @@ const NavStyledContent = styled.div``;
 
 const NavStyled = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
-  const [user, setUser] = useState("seeker");
+  const [user, setUser] = useState("landlord");
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
   };
+  const navigate = useNavigate();
 
+  function handleNewPropertyClick() {
+    navigate("/create");
+  }
   return (
     <NavStyledContainer>
       <NavStyledWrapper>
@@ -75,6 +81,11 @@ const NavStyled = () => {
         )}
         {user === "landlord" && (
           <NavStyledOptions>
+            <Button type="primary" rounded onClick={handleNewPropertyClick}>
+              <AiOutlinePlusCircle style={{ width: "24px", height: "24px" }} />
+              NEW PROPERTY
+            </Button>
+            <br></br>
             <NavStyleOption
               isSelected={selectedOption === "opcion1"}
               onClick={() => handleOptionChange("opcion1")}
@@ -91,6 +102,7 @@ const NavStyled = () => {
             </NavStyleOption>
           </NavStyledOptions>
         )}
+
         {user === "seeker" && (
           <NavStyledContent>
             {selectedOption === "opcion1" ? (

@@ -6,3 +6,10 @@ export const fetchProperties = async () => {
 
   return data;
 };
+
+export const fetchProperty = async (id) => {
+  const data = await apiFetch(`properties/${id}`, { method: "GET" });
+
+  return data;
+};
+

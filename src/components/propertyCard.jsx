@@ -51,6 +51,7 @@ const CardImg = styled.img`
   height: 200px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  object-fit:cover;
 `;
 const TypeContainer = styled.div`
   display: flex;
@@ -79,7 +80,8 @@ const AddressInfo = styled.div`
 const PillsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 8px;
+  justify-content: left;
   color: ${colors.gray[700]};
 `;
 

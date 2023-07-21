@@ -27,6 +27,7 @@ const NavStyledOptions = styled.ul`
   list-style: none;
   display: flex;
   gap: 16px;
+  z-index: 0;
 `;
 const NavStyleOption = styled.li`
   cursor: pointer;
@@ -80,27 +81,34 @@ const NavStyled = () => {
           </NavStyledOptions>
         )}
         {user === "landlord" && (
-          <NavStyledOptions>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
             <Button type="primary" rounded onClick={handleNewPropertyClick}>
               <AiOutlinePlusCircle style={{ width: "24px", height: "24px" }} />
               NEW PROPERTY
             </Button>
-            <br></br>
-            <NavStyleOption
-              isSelected={selectedOption === "opcion1"}
-              onClick={() => handleOptionChange("opcion1")}
-            >
-              ACTIVE
-              <Subrayado isSelected={selectedOption === "opcion1"} />
-            </NavStyleOption>
-            <NavStyleOption
-              isSelected={selectedOption === "opcion2"}
-              onClick={() => handleOptionChange("opcion2")}
-            >
-              CLOSED
-              <Subrayado isSelected={selectedOption === "opcion2"} />
-            </NavStyleOption>
-          </NavStyledOptions>
+            <NavStyledOptions>
+              <NavStyleOption
+                isSelected={selectedOption === "opcion1"}
+                onClick={() => handleOptionChange("opcion1")}
+              >
+                ACTIVE
+                <Subrayado isSelected={selectedOption === "opcion1"} />
+              </NavStyleOption>
+              <NavStyleOption
+                isSelected={selectedOption === "opcion2"}
+                onClick={() => handleOptionChange("opcion2")}
+              >
+                CLOSED
+                <Subrayado isSelected={selectedOption === "opcion2"} />
+              </NavStyleOption>
+            </NavStyledOptions>
+          </div>
         )}
 
         {user === "seeker" && (

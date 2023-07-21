@@ -110,24 +110,33 @@ const ActionSpan = styled.span`
   line-height: 24px;
 `;
 
-function PropertyCard() {
+function PropertyCard({
+  operation,
+  photos,
+  price,
+  address,
+  bedrooms,
+  bathrooms,
+  area,
+  pets,
+}) {
   return (
     <CardContainer>
       <div>
         <ForRentalWrap>
           <ForRental>
             <RiCoinsLine />
-            For Rental
+            {operation}
           </ForRental>
         </ForRentalWrap>
-        <CardImg src={PropertyImg} alt="" />
+        <CardImg src={photos} alt="" />
       </div>
 
       <InfoContainer>
         <TypeContainer>
           <PropertyInfo>
             <ImCoinDollar></ImCoinDollar>
-            <p>3,000</p>
+            <p>{price / 100}</p>
           </PropertyInfo>
           <PropertyInfo>
             <RiBuildingLine></RiBuildingLine>
@@ -135,23 +144,22 @@ function PropertyCard() {
           </PropertyInfo>
         </TypeContainer>
         <AddressInfo>
-          <p>86872 Jacob Gateway,</p>
-          <p>Durganport, WV 48044</p>
+          <p>{address}</p>
         </AddressInfo>
         <PillsContainer>
           <Pills>
-            <BiBed />4
+            <BiBed />
+            {bedrooms}
           </Pills>
           <Pills>
-            <BiBath />2
+            <BiBath />
+            {bathrooms}
           </Pills>
           <Pills>
             <BiArea />
-            180 m2
+            {area} m2
           </Pills>
-          <Pills>
-            <FaPaw />
-          </Pills>
+          <Pills>{pets ? <FaPaw /> : null}</Pills>
         </PillsContainer>
       </InfoContainer>
       <ActionContainer>

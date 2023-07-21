@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const user = { role: 0, value: true };
+  const user = { role: 1, value: true };
 
   return (
     <Wrapper>

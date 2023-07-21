@@ -8,3 +8,23 @@ export async function getUser() {
   // console.log(user);
   return user;
 }
+
+const credentials = {
+  role: 1,
+  name: "testino4",
+  email: "test4@mail.com",
+  phone: "123456789",
+  password_digest: "qwerty",
+};
+
+export async function createUser(credentials) {
+  const { token, ...user } = await apiFetch("users", { body: credentials });
+
+  sessionStorage.setItem(tokenKey, token);
+
+  console.log(user);
+
+  return user;
+}
+
+// createUser(credentials);

@@ -64,6 +64,12 @@ function Header({ onLoginClick, onOtherClick }) {
     navigate("/myproperties");
   }
 
+  function handleModalClick(event) {
+    if (event.target === event.currentTarget) {
+      handleCloseModal();
+    }
+  }
+
   return (
     <Wrapper>
       <Nav>
@@ -145,7 +151,7 @@ function Header({ onLoginClick, onOtherClick }) {
         </div>
       </Nav>
       {isOpenLogModal ? (
-        <Modal>
+        <Modal onClick={handleModalClick}>
           <LoginModal onSubmitClick={handleCloseModal} />
         </Modal>
       ) : null}

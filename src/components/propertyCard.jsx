@@ -8,7 +8,7 @@ import { FaPaw } from "react-icons/fa";
 import { colors } from "../styles";
 
 const CardContainer = styled.div`
-  margin: 30px 30px;
+  margin: 10px;
   width: 300px;
   heigth: 306px;
   border-radius: 8px;
@@ -32,6 +32,7 @@ const ForRental = styled.span`
   background-color: ${colors.pink[400]};
   color: ${colors.white};
   align-items: center;
+  z-index: 0;
 `;
 
 const ForSale = styled.span`
@@ -44,6 +45,7 @@ const ForSale = styled.span`
   background-color: ${colors.pink[700]};
   color: ${colors.white};
   align-items: center;
+  z-index: 0;
 `;
 
 const CardImg = styled.img`
@@ -51,7 +53,7 @@ const CardImg = styled.img`
   height: 200px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
-  object-fit:cover;
+  object-fit: cover;
 `;
 const TypeContainer = styled.div`
   display: flex;
@@ -67,7 +69,6 @@ const PropertyInfo = styled.div`
 `;
 
 const InfoContainer = styled.div`
-  
   display: flex;
   padding: 8px;
   flex-direction: column;

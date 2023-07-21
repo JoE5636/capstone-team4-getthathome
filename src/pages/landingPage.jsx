@@ -11,67 +11,67 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 
 const sampleData = [
-	{
-		"id": 1,
-		"operation": "Venta",
-		"address": "Calle 123, Ciudad A",
-		"category": "Department",
-		"price": 250000,
-		"maintenance": 200,
-		"pets": true,
-		"bedrooms": 3,
-		"bathrooms": 2,
-		"area": 150,
-		"description": "Hermosa casa en venta con amplio jardín.",
-		"created_at": "2023-07-21T14:15:54.448Z",
-		"updated_at": "2023-07-21T14:15:54.562Z",
-		"photos": [
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--56f848cbedce84243a006ba7be03cffecd1c64b8/img01.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--03d47c94c8b38043afda82e8d1c5d75f16c004f9/img02.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--de4aacd9461aebc9d6855526f43f87ff06fb1423/img03.jpg"
-		]
-	},
-	{
-		"id": 2,
-		"operation": "Renta",
-		"address": "Avenida XYZ, Ciudad B",
-		"category": "Home",
-		"price": 1200,
-		"maintenance": 100,
-		"pets": false,
-		"bedrooms": 2,
-		"bathrooms": 1,
-		"area": 80,
-		"description": "Apartamento en renta cerca del centro comercial.",
-		"created_at": "2023-07-21T14:15:54.453Z",
-		"updated_at": "2023-07-21T14:15:54.631Z",
-		"photos": [
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--291395e65f1b0e0f8aa74e0638186eeed64caf41/img04.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc1e7ce5185b6ec7569aab0e01f0987bf8146a98/img05.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--9f791c8d5871d10d4b08cfb5c57236e3193554e8/img06.jpg"
-		]
-	},
-	{
-		"id": 3,
-		"operation": "Venta",
-		"address": "Calle Principal, Ciudad C",
-		"category": "Home",
-		"price": 180000,
-		"maintenance": 150,
-		"pets": true,
-		"bedrooms": 4,
-		"bathrooms": 3,
-		"area": 200,
-		"description": "Casa en venta con piscina y vista al mar.",
-		"created_at": "2023-07-21T14:15:54.458Z",
-		"updated_at": "2023-07-21T14:15:54.687Z",
-		"photos": [
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ebc4cf48a37833fc38a452642e66e4c18035298c/img07.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--b2fe02c17004be64042ea2551f84aa80ac67c29c/img08.jpg",
-			"http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc9bb404084c13099896d58074775899b458be1b/img09.jpg"
-		]
-	}
-]
+  {
+    id: 1,
+    operation: "Venta",
+    address: "Calle 123, Ciudad A",
+    category: "Department",
+    price: 250000,
+    maintenance: 200,
+    pets: true,
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 150,
+    description: "Hermosa casa en venta con amplio jardín.",
+    created_at: "2023-07-21T14:15:54.448Z",
+    updated_at: "2023-07-21T14:15:54.562Z",
+    photos: [
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--56f848cbedce84243a006ba7be03cffecd1c64b8/img01.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--03d47c94c8b38043afda82e8d1c5d75f16c004f9/img02.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--de4aacd9461aebc9d6855526f43f87ff06fb1423/img03.jpg",
+    ],
+  },
+  {
+    id: 2,
+    operation: "Renta",
+    address: "Avenida XYZ, Ciudad B",
+    category: "Home",
+    price: 1200,
+    maintenance: 100,
+    pets: false,
+    bedrooms: 2,
+    bathrooms: 1,
+    area: 80,
+    description: "Apartamento en renta cerca del centro comercial.",
+    created_at: "2023-07-21T14:15:54.453Z",
+    updated_at: "2023-07-21T14:15:54.631Z",
+    photos: [
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--291395e65f1b0e0f8aa74e0638186eeed64caf41/img04.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc1e7ce5185b6ec7569aab0e01f0987bf8146a98/img05.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--9f791c8d5871d10d4b08cfb5c57236e3193554e8/img06.jpg",
+    ],
+  },
+  {
+    id: 3,
+    operation: "Venta",
+    address: "Calle Principal, Ciudad C",
+    category: "Home",
+    price: 180000,
+    maintenance: 150,
+    pets: true,
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 200,
+    description: "Casa en venta con piscina y vista al mar.",
+    created_at: "2023-07-21T14:15:54.458Z",
+    updated_at: "2023-07-21T14:15:54.687Z",
+    photos: [
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ebc4cf48a37833fc38a452642e66e4c18035298c/img07.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--b2fe02c17004be64042ea2551f84aa80ac67c29c/img08.jpg",
+      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc9bb404084c13099896d58074775899b458be1b/img09.jpg",
+    ],
+  },
+];
 
 const Container = styled.div`
   width: 100%;
@@ -154,12 +154,12 @@ const Wrapper = styled.div`
 `;
 
 const PropertySample = styled.div`
-  width: 996px;
+  width: 1000px;
   height: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 48px;
+  gap: 0px;
 `;
 
 const ActionDiv = styled.div`
@@ -311,7 +311,7 @@ function LandingPage() {
             <p>Find an Apartment you Love</p>
             <TitleProp>Homes for rent at the best prices</TitleProp>
             <PropertySample>
-              <PropertyCard 
+              <PropertyCard
                 operation={sampleData[0].operation}
                 photos={sampleData[0].photos[0]}
                 price={sampleData[0].price}
@@ -319,8 +319,9 @@ function LandingPage() {
                 bedrooms={sampleData[0].bedrooms}
                 bathrooms={sampleData[0].bathrooms}
                 area={sampleData[0].area}
-                pets={sampleData[0].pets}/>
-              <PropertyCard 
+                pets={sampleData[0].pets}
+              />
+              <PropertyCard
                 operation={sampleData[1].operation}
                 photos={sampleData[1].photos[1]}
                 price={sampleData[1].price}
@@ -328,8 +329,9 @@ function LandingPage() {
                 bedrooms={sampleData[1].bedrooms}
                 bathrooms={sampleData[1].bathrooms}
                 area={sampleData[1].area}
-                pets={sampleData[1].pets}/>
-              <PropertyCard 
+                pets={sampleData[1].pets}
+              />
+              <PropertyCard
                 operation={sampleData[2].operation}
                 photos={sampleData[2].photos[2]}
                 price={sampleData[2].price}
@@ -337,7 +339,8 @@ function LandingPage() {
                 bedrooms={sampleData[2].bedrooms}
                 bathrooms={sampleData[2].bathrooms}
                 area={sampleData[2].area}
-                pets={sampleData[2].pets}/>
+                pets={sampleData[2].pets}
+              />
             </PropertySample>
           </Wrapper>
         </PropertyWrapper>

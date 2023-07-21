@@ -1,4 +1,6 @@
 import Select from "react-select";
+import { useState, useEffect } from "react";
+import { fetchProperties } from "../services/properties/properties.service";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../styles";
@@ -9,23 +11,33 @@ import MoreOptions from "../components/moreOptions";
 import PriceButton from "../components/priceButton";
 import PropertyType from "../components/propertyType";
 import SearchOption from "../components/searchOption";
+import PropertyCard from "../components/propertyCard";
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: auto;
   padding-top: 10px;
 `;
 
 const MainWrapper = styled.div`
   width: 1190px;
-  height: 100vh;
+  height: auto;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
-
+  gap: 20px;
   background-color: ${colors.white};
+`;
+
+const PropertiesWrapper = styled.div`
+  width: 1190px;
+  height: 1300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
 `;
 
 const FiltersWrapper = styled.div`
@@ -42,6 +54,17 @@ const ButtonsWrapper = styled.div`
 `;
 
 function PropertiesList() {
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const data = await fetchProperties();
+      setProperties(data);
+    })();
+  }, []);
+
+  console.log(properties);
+
   const navigate = useNavigate();
   function handleSignupClick() {
     navigate("/role");
@@ -94,6 +117,33 @@ function PropertiesList() {
               }}
             />
           </FiltersWrapper>
+          <PropertiesWrapper>
+            {properties.map((property) => {
+              const {
+                operation,
+                photos,
+                price,
+                address,
+                bedrooms,
+                bathrooms,
+                area,
+                pets,
+              } = property;
+
+              const propertyProps = {
+                operation,
+                photos,
+                price,
+                address,
+                bedrooms,
+                bathrooms,
+                area,
+                pets,
+              };
+
+              return <PropertyCard key={property.id} {...propertyProps} />;
+            })}
+          </PropertiesWrapper>
         </MainWrapper>
       </Container>
       <Footer />

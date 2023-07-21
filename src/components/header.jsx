@@ -18,6 +18,7 @@ const Wrapper = styled.header`
   position: sticky;
   top: 0;
   background: ${colors.white};
+  z-index: 1;
 `;
 
 const Nav = styled.div`
@@ -38,12 +39,13 @@ const Modal = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  z-index: 1;
 `;
 
 const PathLink = styled(Link)``;
 
 function Header({ onLoginClick, onOtherClick }) {
-  const [user, setUser] = useState("seeker");
+  const [user, setUser] = useState(null);
   const [isOpenLogModal, setIsOpenLogModal] = useState(false);
   const navigate = useNavigate();
 

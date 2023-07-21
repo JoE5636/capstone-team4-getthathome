@@ -88,6 +88,7 @@ const NoPhotos = styled.div`
 
 function PropertyListing() {
   const [propertyType, setPropertyType] = useState("");
+  const [isRenting, setisRenting] = useState(true)
 
   const handlePropertyTypeChange = (event) => {
     setPropertyType(event.target.value);
@@ -112,7 +113,7 @@ function PropertyListing() {
       <Header />
       <Container>
         <Title>Create a property listing</Title>
-        <TypeSelect />
+        <TypeSelect isRenting={isRenting} handleClick={(renting) => setisRenting(renting)} />
         <ListingInput
           icon={<BiSearch style={{ width: "20px", height: "20px" }} />}
           id="address"
@@ -122,24 +123,46 @@ function PropertyListing() {
           placeholder="start typing to autocomplete"
           isFullWidth={true}
         />
-        <ListingInput
-          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-          id="rent"
-          name="rent"
-          label={"Monthly Rent"}
-          type="text"
-          placeholder="$"
-          isFullWidth={false}
-        />
-        <ListingInput
-          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-          id="manitanance"
-          name="manitanance"
-          label={"Manitanance"}
-          type="text"
-          placeholder="$"
-          isFullWidth={false}
-        />
+        {
+          !isRenting && (
+            <ListingInput
+              icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+              id="price"
+              name="price"
+              label={"Price"}
+              type="text"
+              placeholder="$"
+              isFullWidth={false}
+            />
+          )
+        }
+        <>
+          {
+            isRenting && (
+              <>
+                <ListingInput
+                  icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+                  id="rent"
+                  name="rent"
+                  label={"Monthly Rent"}
+                  type="text"
+                  placeholder="$"
+                  isFullWidth={false}
+                />
+                <ListingInput
+                  icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+                  id="manitanance"
+                  name="manitanance"
+                  label={"Manitanance"}
+                  type="text"
+                  placeholder="$"
+                  isFullWidth={false}
+                />
+              </>
+            )
+          }
+        </>
+
         <TypeWrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
             Property Type
@@ -236,13 +259,19 @@ function PropertyListing() {
             <AreaInput style={{ width: "120px" }} />
           </div>
         </OptionsWrapper>
-        <Wrapper>
-          <Checkbox text="Pets Allowed" value="pets" />
-          <p style={{ fontSize: ".7rem" }}>
-            Allowing pets increases the likehood of renters liking the property
-            by 9001%. It also makes you a better person.
-          </p>
-        </Wrapper>
+        <>
+          {
+            isRenting && (
+              <Wrapper>
+                <Checkbox text="Pets Allowed" value="pets" />
+                <p style={{ fontSize: ".7rem" }}>
+                  Allowing pets increases the likehood of renters liking the property
+                  by 9001%. It also makes you a better person.
+                </p>
+              </Wrapper>
+            )
+          }
+        </>
         <Wrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
             about this property

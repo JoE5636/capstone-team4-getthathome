@@ -10,6 +10,8 @@ import ListingInput from "../components/listingInput";
 import TypeSelect from "../components/typeSelect";
 import Checkbox from "../components/checkbox";
 import Button from "../components/button";
+import Footer from "../components/footer";
+import Header from "../components/header";
 
 const Container = styled.div`
   width: 1200px;
@@ -106,179 +108,186 @@ function PropertyListing() {
   ];
 
   return (
-    <Container>
-      <Title>Create a property listing</Title>
-      <TypeSelect />
-      <ListingInput
-        icon={<BiSearch style={{ width: "20px", height: "20px" }} />}
-        id="address"
-        name="address"
-        label={"Address"}
-        type="text"
-        placeholder="start typing to autocomplete"
-        isFullWidth={true}
-      />
-      <ListingInput
-        icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-        id="rent"
-        name="rent"
-        label={"Monthly Rent"}
-        type="text"
-        placeholder="$"
-        isFullWidth={false}
-      />
-      <ListingInput
-        icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-        id="manitanance"
-        name="manitanance"
-        label={"Manitanance"}
-        type="text"
-        placeholder="$"
-        isFullWidth={false}
-      />
-      <TypeWrapper>
-        <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-          Property Type
-        </label>
-        <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
-          <Checkbox
-            text="Apartment"
-            value="apartment"
-            checked={propertyType === "apartment"}
-            onChange={handlePropertyTypeChange}
-          />
-          <Checkbox
-            text="House"
-            value="house"
-            checked={propertyType === "house"}
-            onChange={handlePropertyTypeChange}
-          />
-        </div>
-      </TypeWrapper>
-      <OptionsWrapper>
-        <div>
+    <>
+      <Header />
+      <Container>
+        <Title>Create a property listing</Title>
+        <TypeSelect />
+        <ListingInput
+          icon={<BiSearch style={{ width: "20px", height: "20px" }} />}
+          id="address"
+          name="address"
+          label={"Address"}
+          type="text"
+          placeholder="start typing to autocomplete"
+          isFullWidth={true}
+        />
+        <ListingInput
+          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+          id="rent"
+          name="rent"
+          label={"Monthly Rent"}
+          type="text"
+          placeholder="$"
+          isFullWidth={false}
+        />
+        <ListingInput
+          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+          id="manitanance"
+          name="manitanance"
+          label={"Manitanance"}
+          type="text"
+          placeholder="$"
+          isFullWidth={false}
+        />
+        <TypeWrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-            bedrooms
+            Property Type
           </label>
-          <Select
-            options={bedroomOptions}
-            styles={{
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isFocused
-                  ? `${colors.gray[300]}`
-                  : `${colors.pink[400]}`,
-              }),
-              indicatorSeparator: () => ({
-                appearance: "none",
-              }),
-              container: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isSelected
-                  ? `${colors.gray[300]}`
-                  : `${colors.pink[400]}`,
-                width: "120px",
-              }),
-              option: (baseStyles, state) => ({
-                ...baseStyles,
-                backgroundColor: state.isFocused
-                  ? `${colors.pink[100]}`
-                  : `${colors.white}`,
-              }),
-            }}
-          />
-        </div>
-        <div>
-          <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-            bathrooms
-          </label>
-          <Select
-            options={bathOptions}
-            styles={{
-              control: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isFocused
-                  ? `${colors.gray[300]}`
-                  : `${colors.pink[400]}`,
-              }),
-              indicatorSeparator: () => ({
-                appearance: "none",
-              }),
-              container: (baseStyles, state) => ({
-                ...baseStyles,
-                borderColor: state.isSelected
-                  ? `${colors.gray[300]}`
-                  : `${colors.pink[400]}`,
-                width: "120px",
-              }),
-              option: (baseStyles, state) => ({
-                ...baseStyles,
-                backgroundColor: state.isFocused
-                  ? `${colors.pink[100]}`
-                  : `${colors.white}`,
-              }),
-            }}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-            area in m2
-          </label>
-          <AreaInput style={{ width: "120px" }} />
-        </div>
-      </OptionsWrapper>
-      <Wrapper>
-        <Checkbox text="Pets Allowed" value="pets" />
-        <p style={{ fontSize: ".7rem" }}>
-          Allowing pets increases the likehood of renters liking the property by
-          9001%. It also makes you a better person.
-        </p>
-      </Wrapper>
-      <Wrapper>
-        <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-          about this property
-        </label>
-        <TextArea rows={10} placeholder="My apartment is great because..." />
-      </Wrapper>
-      <Wrapper>
-        <SubTitle>Photos</SubTitle>
-        <div>
-          <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
-            upload as many photos as you wish
-          </label>
+          <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+            <Checkbox
+              text="Apartment"
+              value="apartment"
+              checked={propertyType === "apartment"}
+              onChange={handlePropertyTypeChange}
+            />
+            <Checkbox
+              text="House"
+              value="house"
+              checked={propertyType === "house"}
+              onChange={handlePropertyTypeChange}
+            />
+          </div>
+        </TypeWrapper>
+        <OptionsWrapper>
+          <div>
+            <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+              bedrooms
+            </label>
+            <Select
+              options={bedroomOptions}
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: state.isFocused
+                    ? `${colors.gray[300]}`
+                    : `${colors.pink[400]}`,
+                }),
+                indicatorSeparator: () => ({
+                  appearance: "none",
+                }),
+                container: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: state.isSelected
+                    ? `${colors.gray[300]}`
+                    : `${colors.pink[400]}`,
+                  width: "120px",
+                }),
+                option: (baseStyles, state) => ({
+                  ...baseStyles,
+                  backgroundColor: state.isFocused
+                    ? `${colors.pink[100]}`
+                    : `${colors.white}`,
+                }),
+              }}
+            />
+          </div>
+          <div>
+            <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+              bathrooms
+            </label>
+            <Select
+              options={bathOptions}
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: state.isFocused
+                    ? `${colors.gray[300]}`
+                    : `${colors.pink[400]}`,
+                }),
+                indicatorSeparator: () => ({
+                  appearance: "none",
+                }),
+                container: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderColor: state.isSelected
+                    ? `${colors.gray[300]}`
+                    : `${colors.pink[400]}`,
+                  width: "120px",
+                }),
+                option: (baseStyles, state) => ({
+                  ...baseStyles,
+                  backgroundColor: state.isFocused
+                    ? `${colors.pink[100]}`
+                    : `${colors.white}`,
+                }),
+              }}
+            />
+          </div>
           <div
             style={{
               display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              gap: "8px",
+              flexDirection: "column",
             }}
           >
-            <Button type="primary">
-              <RiUploadLine style={{ width: "20px", height: "20px" }} />
-              Choose a file
-            </Button>
-            <span style={{ fontSize: ".8rem", color: `${colors.gray[500]}` }}>
-              No file chosen
+            <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+              area in m2
+            </label>
+            <AreaInput style={{ width: "120px" }} />
+          </div>
+        </OptionsWrapper>
+        <Wrapper>
+          <Checkbox text="Pets Allowed" value="pets" />
+          <p style={{ fontSize: ".7rem" }}>
+            Allowing pets increases the likehood of renters liking the property
+            by 9001%. It also makes you a better person.
+          </p>
+        </Wrapper>
+        <Wrapper>
+          <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+            about this property
+          </label>
+          <TextArea rows={10} placeholder="My apartment is great because..." />
+        </Wrapper>
+        <Wrapper>
+          <SubTitle>Photos</SubTitle>
+          <div>
+            <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
+              upload as many photos as you wish
+            </label>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <Button type="primary">
+                <RiUploadLine style={{ width: "20px", height: "20px" }} />
+                Choose a file
+              </Button>
+              <span style={{ fontSize: ".8rem", color: `${colors.gray[500]}` }}>
+                No file chosen
+              </span>
+            </div>
+            <span style={{ fontSize: ".9rem", color: `${colors.gray[500]}` }}>
+              Only images, max 5MB
             </span>
           </div>
-          <span style={{ fontSize: ".9rem", color: `${colors.gray[500]}` }}>
-            Only images, max 5MB
-          </span>
-        </div>
-      </Wrapper>
-      <PhotosContainer>
-        <NoPhotos>No Photos Yet</NoPhotos>
-      </PhotosContainer>
-      <Button style={{ padding: "20px", borderRadius: "10px" }} type="primary">
-        PUBLISH PROPPERTY LISTING
-      </Button>
-    </Container>
+        </Wrapper>
+        <PhotosContainer>
+          <NoPhotos>No Photos Yet</NoPhotos>
+        </PhotosContainer>
+        <Button
+          style={{ padding: "20px", borderRadius: "10px" }}
+          type="primary"
+        >
+          PUBLISH PROPPERTY LISTING
+        </Button>
+      </Container>
+      <Footer />
+    </>
   );
 }
 

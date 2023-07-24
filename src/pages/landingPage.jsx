@@ -9,6 +9,58 @@ import PropertyCard from "../components/propertyCard";
 import TeamSection from "../components/TeamSection";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Depa from "../assets/depa1.png";
+
+const sampleData = [
+  {
+    id: 1,
+    operation: "Venta",
+    address: "Calle 123, Ciudad A",
+    category: "Department",
+    price: 250000,
+    maintenance: 200,
+    pets: true,
+    bedrooms: 3,
+    bathrooms: 2,
+    area: 150,
+    description: "Hermosa casa en venta con amplio jardín.",
+    created_at: "2023-07-21T14:15:54.448Z",
+    updated_at: "2023-07-21T14:15:54.562Z",
+    photos: { Depa },
+  },
+  {
+    id: 2,
+    operation: "Renta",
+    address: "Avenida XYZ, Ciudad B",
+    category: "Home",
+    price: 1200,
+    maintenance: 100,
+    pets: false,
+    bedrooms: 2,
+    bathrooms: 1,
+    area: 80,
+    description: "Apartamento en renta cerca del centro comercial.",
+    created_at: "2023-07-21T14:15:54.453Z",
+    updated_at: "2023-07-21T14:15:54.631Z",
+    photos: { Depa },
+  },
+  {
+    id: 3,
+    operation: "Venta",
+    address: "Calle Principal, Ciudad C",
+    category: "Home",
+    price: 180000,
+    maintenance: 150,
+    pets: true,
+    bedrooms: 4,
+    bathrooms: 3,
+    area: 200,
+    description: "Casa en venta con piscina y vista al mar.",
+    created_at: "2023-07-21T14:15:54.458Z",
+    updated_at: "2023-07-21T14:15:54.687Z",
+    photos: { Depa },
+  },
+];
 
 const Container = styled.div`
   width: 100%;
@@ -91,12 +143,12 @@ const Wrapper = styled.div`
 `;
 
 const PropertySample = styled.div`
-  width: 996px;
+  width: 1000px;
   height: 400px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 48px;
+  gap: 0px;
 `;
 
 const ActionDiv = styled.div`
@@ -248,9 +300,36 @@ function LandingPage() {
             <p>Find an Apartment you Love</p>
             <TitleProp>Homes for rent at the best prices</TitleProp>
             <PropertySample>
-              <PropertyCard />
-              <PropertyCard />
-              <PropertyCard />
+              <PropertyCard
+                operation={sampleData[0].operation}
+                photos={sampleData[0].photos[0]}
+                price={sampleData[0].price}
+                address={sampleData[0].address}
+                bedrooms={sampleData[0].bedrooms}
+                bathrooms={sampleData[0].bathrooms}
+                area={sampleData[0].area}
+                pets={sampleData[0].pets}
+              />
+              <PropertyCard
+                operation={sampleData[1].operation}
+                photos={sampleData[1].photos[1]}
+                price={sampleData[1].price}
+                address={sampleData[1].address}
+                bedrooms={sampleData[1].bedrooms}
+                bathrooms={sampleData[1].bathrooms}
+                area={sampleData[1].area}
+                pets={sampleData[1].pets}
+              />
+              <PropertyCard
+                operation={sampleData[2].operation}
+                photos={sampleData[2].photos[2]}
+                price={sampleData[2].price}
+                address={sampleData[2].address}
+                bedrooms={sampleData[2].bedrooms}
+                bathrooms={sampleData[2].bathrooms}
+                area={sampleData[2].area}
+                pets={sampleData[2].pets}
+              />
             </PropertySample>
           </Wrapper>
         </PropertyWrapper>

@@ -1,17 +1,36 @@
-import { BASE_URI } from "../config";
+import { tokenKey, BASE_URI } from "../config";
 
-export default async function apiFetch(endpoint, { method, body } = {}) {
-  // const token = sessionStorage.getItem(tokenKey);
+export default async function apiFetch(
+  endpoint,
+  { method, headers, body } = {}
+) {
+  const token = sessionStorage.getItem(tokenKey);
+  // const token = "";
+
+  if (token) {
+    headers = {
+      Authorization: `${token}`,
+      ...headers,
+    };
+  }
+
+  if (body) {
+    headers = {
+      "Content-Type": "application/json",
+      ...headers,
+    };
+  }
 
   const config = {
     method: method || (body ? "POST" : "GET"),
-
+    headers,
     body: body ? JSON.stringify(body) : null,
   };
 
   const response = await fetch(BASE_URI + endpoint, config);
 
   let data;
+  console.log(response);
   if (!response.ok) {
     try {
       data = await response.json();

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
-
+import { fetchProperty } from "../services/properties/properties.service";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { ImCoinDollar } from "react-icons/im";
 import { RiBuildingLine, RiCoinsLine } from "react-icons/ri";
@@ -8,6 +9,8 @@ import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiBed, BiBath, BiArea, BiEdit } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 import Button from "../components/button";
 import { colors } from "../styles";
@@ -72,6 +75,7 @@ const Option = () => {
 };
 
 ///////////////////////////////////////////
+
 const ImageSliderContainer = styled.div`
   padding-top: 40px;
 `;
@@ -88,23 +92,24 @@ const ImageContainer = styled.img`
   object-fit: cover;
 `;
 
-const ImageSlider = () => {
+const ImageSlider = ({ photos }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const sliders = [
-    {
-      url: "https://www.construyehogar.com/wp-content/uploads/2014/06/Plano-de-departamento-peque%C3%B1o-Marsh-Properties.jpeg",
-    },
-    {
-      url: "https://i.pinimg.com/1200x/86/9a/3d/869a3d717518649e84830348737c537e.jpg",
-    },
-    {
-      url: "https://urbania.pe/blog/wp-content/uploads/2015/11/Mayor-demanda-por-departamentos-peque%C3%B1os-Urbania.pe_1.jpg",
-    },
-    {
-      url: "https://planosdecasasmodernas.com/wp-content/uploads/2018/05/modelos-de-departamentos-peque%C3%B1os-y-bonitos.jpg",
-    },
-  ];
+  // console.log({data:photos})
+  const sliders = photos.map((url) => ({ url }));
+  // [
+  //   {
+  //     url: "https://www.construyehogar.com/wp-content/uploads/2014/06/Plano-de-departamento-peque%C3%B1o-Marsh-Properties.jpeg",
+  //   },
+  //   {
+  //     url: "https://i.pinimg.com/1200x/86/9a/3d/869a3d717518649e84830348737c537e.jpg",
+  //   },
+  //   {
+  //     url: "https://urbania.pe/blog/wp-content/uploads/2015/11/Mayor-demanda-por-departamentos-peque%C3%B1os-Urbania.pe_1.jpg",
+  //   },
+  //   {
+  //     url: "https://planosdecasasmodernas.com/wp-content/uploads/2018/05/modelos-de-departamentos-peque%C3%B1os-y-bonitos.jpg",
+  //   },
+  // ];
 
   const prevSlider = () => {
     const isFirstSlider = currentIndex === 0;
@@ -211,24 +216,43 @@ const Location = styled.div`
 `;
 
 const PropertyDetail = () => {
+  const { id } = useParams();
+  const [properties, setProperties] = useState(null);
+
+  useEffect(() => {
+    const fetchPropertyData = async () => {
+      try {
+        const data = await fetchProperty(id);
+        setProperties(data);
+      } catch (error) {
+        console.error("Error fetching property:", error);
+      }
+    };
+    fetchPropertyData();
+  }, [id]);
+  if (!properties || !properties.photos) {
+    return <div></div>;
+  }
+  console.log("Images:", properties.photos);
   return (
     <>
+      <Header />
       <Container>
         <LeftContent>
           <LeftContentWrapper>
-            <ImageSlider></ImageSlider>
+            <ImageSlider photos={properties.photos}></ImageSlider>
             <DescriptionContainer>
               <MainDescription>
                 <MainDescriptionLeft>
-                  <h2>Francisco de Paula Ugarriza 27</h2>
+                  <h2>{properties.address}</h2>
                   <h3>Miraflores, Lima</h3>
                 </MainDescriptionLeft>
                 <MainDescriptionRight>
                   <div>
                     <ImCoinDollar size={25} />
-                    <h3>3,000</h3>
+                    <h3>{properties.price}</h3>
                   </div>
-                  <p>+100</p>
+                  <p>+{properties.maintenance}</p>
                 </MainDescriptionRight>
               </MainDescription>
               <MainFeatures>
@@ -243,34 +267,26 @@ const PropertyDetail = () => {
                   </li>
                   <li>
                     <BiArea size={25} />
-                    <p>180 m2</p>
+                    <p>{properties.area} m2</p>
                   </li>
-                  <li>
-                    <FaPaw size={25} />
-                    <p>Pets allowed</p>
-                  </li>
+                  {properties.pets ? (
+                    <li>
+                      <FaPaw size={25} />
+                      <p>Pets allowed</p>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
                 </ul>
               </MainFeatures>
               <About>
                 <h3>About this property</h3>
 
-                <p>
-                  3 Bedroom/2 Bathroom apartment available for ASAP move-in!
-                </p>
-
-                <p>
-                  Apartment features hardwood floors throughout, virtual
-                  doorman, Central AC/heat, dishwasher and a microwave.{" "}
-                </p>
-
-                <p>
-                  The kitchen has custom cabinetry and the living room is big
-                  enough to fit a dinner table, a couch and a tv set up.
-                </p>
+                <p>{properties.description}</p>
               </About>
               <Location>
                 <h3>Location</h3>
-                <p>Francisco de Paula Ugarriza 27, Miraflores, Lima</p>
+                <p>{properties.address}</p>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d42219.03168045388!2d-77.09399423483814!3d-12.012220558844529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cc3d52f51e01%3A0x1f75ae97fb12652c!2sAeropuerto%20Internacional%20Jorge%20Ch%C3%A1vez!5e0!3m2!1ses-419!2spe!4v1689780367983!5m2!1ses-419!2spe"
                   width="600"
@@ -288,6 +304,7 @@ const PropertyDetail = () => {
           <Option></Option>
         </RightContent>
       </Container>
+      <Footer />
     </>
   );
 };

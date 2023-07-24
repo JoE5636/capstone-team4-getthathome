@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
-// import { Route, Routes, Navigate } from "react-router-dom";
+// import { useState, useEffect } from "react";
+// import { getUser } from "./services/user/userService";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import AuthenticatedLandlord from "./AuthenticatedLandlord";
 import AuthenticatedSeeker from "./AuthenticatedSeeker";
+import { useAuth } from "./context/authContext";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -10,12 +12,12 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  const user = { role: 1, value: true };
+  const { user } = useAuth();
 
   return (
     <Wrapper>
-      {user.value === true ? (
-        user.role === 0 ? (
+      {user ? (
+        user.role === 1 ? (
           <AuthenticatedLandlord />
         ) : (
           <AuthenticatedSeeker />

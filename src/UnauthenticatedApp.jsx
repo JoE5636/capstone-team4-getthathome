@@ -4,6 +4,8 @@ import LandingPage from "./pages/landingPage";
 import RoleSelect from "./pages/roleSelection";
 import SignUpForm from "./pages/signupForm";
 import PropertiesList from "./pages/propertyList";
+import PropertyDetail from "./pages/propertyDetail";
+import Header from "./components/header";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,6 +22,8 @@ export default function UnauthenticatedApp() {
           <Route path="role" element={<RoleSelect />} />
           <Route path="signup/:role" element={<SignUpForm />} />
           <Route path="properties" element={<PropertiesList />} />
+          <Route exact path="/properties/:id" element={<PropertyDetail/>} />
+          {/* <Route exact path="/properties/:id" element={<h1>Hola</h1>} /> */}
           <Route path="*" element={<Navigate to="/home" replace={true} />} />
         </Route>
       </Routes>

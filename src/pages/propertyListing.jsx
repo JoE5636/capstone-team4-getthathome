@@ -87,6 +87,7 @@ const NoPhotos = styled.div`
 `;
 
 function PropertyListing() {
+
   const [isRenting, setisRenting] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -102,6 +103,7 @@ function PropertyListing() {
     area: 0,
     description: "",
   });
+
 
   console.log(photos);
 
@@ -173,6 +175,7 @@ function PropertyListing() {
       <Header />
       <Container>
         <Title>Create a property listing</Title>
+
         <TypeSelect
           isRenting={isRenting}
           handleClick={(renting) => setisRenting(renting)}
@@ -188,6 +191,7 @@ function PropertyListing() {
           value={formData.address}
           onChange={handleChange}
         />
+
         {!isRenting && (
           <ListingInput
             icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
@@ -232,6 +236,7 @@ function PropertyListing() {
               />
             </>
           )}
+
         </>
 
         <TypeWrapper>
@@ -353,6 +358,7 @@ function PropertyListing() {
           </div>
         </OptionsWrapper>
         <>
+
           {isRenting && (
             <Wrapper>
               <Checkbox
@@ -368,6 +374,7 @@ function PropertyListing() {
               </p>
             </Wrapper>
           )}
+
         </>
         <Wrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>

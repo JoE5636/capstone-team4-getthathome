@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { colors } from "../styles";
+// import { getUser } from "../services/user/userService";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Button from "../components/button";
+import { useAuth } from "../context/authContext";
 
 const NavStyledContainer = styled.div`
   width: 100vw;
@@ -49,7 +51,7 @@ const NavStyledContent = styled.div``;
 
 const NavStyled = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
-  const [user, setUser] = useState("landlord");
+  const { user } = useAuth();
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -62,7 +64,7 @@ const NavStyled = () => {
   return (
     <NavStyledContainer>
       <NavStyledWrapper>
-        {user === "seeker" && (
+        {user?.role === 2 && (
           <NavStyledOptions>
             <NavStyleOption
               isSelected={selectedOption === "opcion1"}
@@ -80,7 +82,7 @@ const NavStyled = () => {
             </NavStyleOption>
           </NavStyledOptions>
         )}
-        {user === "landlord" && (
+        {user?.role === 1 && (
           <div
             style={{
               display: "flex",
@@ -111,7 +113,7 @@ const NavStyled = () => {
           </div>
         )}
 
-        {user === "seeker" && (
+        {user?.role === 2 && (
           <NavStyledContent>
             {selectedOption === "opcion1" ? (
               <h1>Favorites</h1>
@@ -120,7 +122,7 @@ const NavStyled = () => {
             )}
           </NavStyledContent>
         )}
-        {user === "landlord" && (
+        {user?.role === 1 && (
           <NavStyledContent>
             {selectedOption === "opcion1" ? <h1>Active</h1> : <h1>Closed</h1>}
           </NavStyledContent>

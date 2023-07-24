@@ -4,6 +4,7 @@ import LandingPage from "./pages/landingPage";
 import Properties from "./pages/properties";
 import PropertiesList from "./pages/propertyList";
 import PropertyListing from "./pages/propertyListing";
+import PropertyDetail from "./pages/propertyDetail";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -20,6 +21,7 @@ export default function AuthenticatedLandlord() {
           <Route path="myproperties" element={<Properties />} />
           <Route path="properties" element={<PropertiesList />} />
           <Route path="create" element={<PropertyListing />} />
+          <Route exact path="/properties/:id" element={<PropertyDetail />} />
           <Route path="*" element={<Navigate to="/home" replace={true} />} />
         </Route>
       </Routes>

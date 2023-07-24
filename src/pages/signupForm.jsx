@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import { useNavigate } from "react-router-dom";
+import { createUser } from "../services/user/userService";
+import { useNavigate, useParams } from "react-router-dom";
 import { colors } from "../styles";
 import { typography } from "../styles";
 import Button from "../components/button";
 import ListingInput from "../components/listingInput";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 100vw;
@@ -29,7 +31,7 @@ const SubTitle = styled.h1`
   font-weight: 300;
 `;
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   width: 388px;
   height: 490px;
   display: flex;
@@ -54,15 +56,47 @@ const InputWrapper = styled.div`
 `;
 
 function SignUpForm() {
+  const { role } = useParams();
+  const [formData, setFormData] = useState({
+    role: `${role}`,
+    name: "",
+    email: "",
+    phone: "",
+    password_digest: "",
+  });
+
+  console.log(formData);
+
+  const { name, email, phone, password_digest } = formData;
+  // const [confirmation, setConfirmation] = useState(null);
+
+  function handleFormChange(event) {
+    const { name, value } = event.target;
+    console.log(value);
+    // toast("adsasd")
+    setFormData({ ...formData, [name]: value });
+  }
+
+  // function handleConfirmationChange(event) {
+  //   console.log(event.target.value);
+  //   setConfirmation(event.taget.value);
+  // }
+
   const navigate = useNavigate();
   function handleSignupClick() {
     navigate("/role");
   }
+
+  function handleSubmit(event) {
+    createUser(formData);
+    navigate("/home");
+  }
+
   return (
     <>
       <Header onOtherClick={handleSignupClick} />
       <Container>
-        <FormWrapper>
+        <FormWrapper onSubmit={handleSubmit}>
           <SubTitle>Create your Account</SubTitle>
           <InputWrapper>
             <ListingInput
@@ -70,40 +104,50 @@ function SignUpForm() {
               name="name"
               label={"Name"}
               type="text"
+              value={name}
               placeholder="Jhon Doe"
               isFullWidth={false}
+              onChange={handleFormChange}
             />
             <ListingInput
               id="email"
               name="email"
               label={"Email"}
               type="email"
+              value={email}
               placeholder="example@mail.com"
               isFullWidth={false}
+              onChange={handleFormChange}
             />
             <ListingInput
               id="phone"
               name="phone"
               label={"Phone"}
               type="text"
+              value={phone}
               placeholder="555-555-555"
               isFullWidth={false}
+              onChange={handleFormChange}
             />
             <ListingInput
-              id="password"
-              name="password"
+              id="password_digest"
+              name="password_digest"
               label={"Password"}
               type="password"
+              value={password_digest}
               placeholder="******"
               isFullWidth={false}
+              onChange={handleFormChange}
             />
             <ListingInput
               id="confirmation"
               name="confirmation"
               label={"Password Confirmation"}
               type="password"
+              // value={confirmation}
               placeholder="******"
               isFullWidth={false}
+              // onChange={handleConfirmationChange}
             />
           </InputWrapper>
           <Button style={{ borderRadius: "10px" }} type="primary">

@@ -6,11 +6,11 @@ import { BiBed, BiBath, BiArea, BiEdit } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
 import { colors } from "../styles";
+import { Link } from "react-router-dom";
 
 const CardContainer = styled.div`
-  margin: 30px 30px;
+  margin: 10px;
   width: 300px;
-  heigth: 306px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -32,6 +32,7 @@ const ForRental = styled.span`
   background-color: ${colors.pink[400]};
   color: ${colors.white};
   align-items: center;
+  z-index: 0;
 `;
 
 const ForSale = styled.span`
@@ -44,13 +45,16 @@ const ForSale = styled.span`
   background-color: ${colors.pink[700]};
   color: ${colors.white};
   align-items: center;
+  z-index: 0;
 `;
 
 const CardImg = styled.img`
+  cursor:pointer;
   width: 300px;
   height: 200px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+  object-fit: cover;
 `;
 const TypeContainer = styled.div`
   display: flex;
@@ -77,9 +81,11 @@ const AddressInfo = styled.div`
 `;
 
 const PillsContainer = styled.div`
+  padding-left: 8px;
   display: flex;
   flex-direction: row;
-  gap: 16px;
+  gap: 8px;
+  justify-content: left;
   color: ${colors.gray[700]};
 `;
 
@@ -111,14 +117,17 @@ const ActionSpan = styled.span`
 `;
 
 function PropertyCard({
+  id,
   operation,
   photos,
   price,
+  category,
   address,
   bedrooms,
   bathrooms,
   area,
   pets,
+  rol=0
 }) {
   return (
     <CardContainer>
@@ -129,18 +138,20 @@ function PropertyCard({
             {operation}
           </ForRental>
         </ForRentalWrap>
-        <CardImg src={photos} alt="" />
+        <Link to={`/properties/${id}`}>
+          <CardImg src={photos} alt="" />
+        </Link>
       </div>
 
       <InfoContainer>
         <TypeContainer>
           <PropertyInfo>
             <ImCoinDollar></ImCoinDollar>
-            <p>{price / 100}</p>
+            <p>{price }</p>
           </PropertyInfo>
           <PropertyInfo>
             <RiBuildingLine></RiBuildingLine>
-            <p>Apartment</p>
+            <p>{category}</p>
           </PropertyInfo>
         </TypeContainer>
         <AddressInfo>
@@ -162,16 +173,18 @@ function PropertyCard({
           <Pills>{pets ? <FaPaw /> : null}</Pills>
         </PillsContainer>
       </InfoContainer>
-      <ActionContainer>
-        <ActionSpan>
-          <BiEdit />
-          Edit
-        </ActionSpan>
-        <ActionSpan>
-          <SlClose />
-          Close
-        </ActionSpan>
-      </ActionContainer>
+      {rol === 0 ? <></> :
+        <ActionContainer>
+          <ActionSpan>
+            <BiEdit />
+            Edit
+          </ActionSpan>
+          <ActionSpan>
+            <SlClose />
+            Close
+          </ActionSpan>
+        </ActionContainer>
+      }
     </CardContainer>
   );
 }

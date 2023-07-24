@@ -1,14 +1,17 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import homeLogo from "../assets/logo.png";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { AiFillHeart } from "react-icons/ai";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import { RiHome8Line } from "react-icons/ri";
 import { BiSearch } from "react-icons/bi";
 import { colors } from "../styles";
 import Button from "./button";
 import LoginModal from "./loginModal";
+// import { login } from "../services/session/sessionService";
+import { useAuth } from "../context/authContext";
 
 const Wrapper = styled.header`
   display: flex;
@@ -45,7 +48,8 @@ const Modal = styled.div`
 const PathLink = styled(Link)``;
 
 function Header({ onLoginClick, onOtherClick }) {
-  const [user, setUser] = useState(null);
+  const { user, login, logout } = useAuth();
+
   const [isOpenLogModal, setIsOpenLogModal] = useState(false);
   const navigate = useNavigate();
 
@@ -68,6 +72,14 @@ function Header({ onLoginClick, onOtherClick }) {
     if (event.target === event.currentTarget) {
       handleCloseModal();
     }
+  }
+  function handleLoginModalSubmit(formData) {
+    login(formData);
+    handleCloseModal();
+  }
+
+  function handleLogout() {
+    logout();
   }
 
   return (
@@ -102,7 +114,7 @@ function Header({ onLoginClick, onOtherClick }) {
               JOIN
             </Button>
           )}
-          {user === "landlord" && (
+          {user && user.role === 1 ? (
             <Button
               rounded
               style={{
@@ -115,8 +127,9 @@ function Header({ onLoginClick, onOtherClick }) {
               <RiHome8Line style={{ width: "24px", height: "24px" }} />
               My Properties
             </Button>
-          )}
-          {user === "seeker" && (
+          ) : null}
+
+          {user && user.role === 2 ? (
             <Button
               rounded
               style={{
@@ -129,30 +142,46 @@ function Header({ onLoginClick, onOtherClick }) {
               <AiFillHeart style={{ width: "24px", height: "24px" }} />
               Saved Properties
             </Button>
-          )}
+          ) : null}
+
           {user === null && (
             <Button type="primary" rounded onClick={handleLoginClick}>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               LOGIN
             </Button>
           )}
-          {user === "landlord" && (
+
+          {user ? (
             <Button type="primary" rounded>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               PROFILE
             </Button>
-          )}
-          {user === "seeker" && (
+          ) : null}
+
+          {/* {user?.role === 2 && (
             <Button type="primary" rounded>
               <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
               PROFILE
             </Button>
-          )}
+          )} */}
+          {user ? (
+            <Button
+              rounded
+              style={{
+                border: `1px solid ${colors.pink[500]}`,
+                backgroundColor: `${colors.white}`,
+              }}
+              onClick={handleLogout}
+            >
+              <AiOutlineCloseCircle style={{ width: "24px", height: "24px" }} />
+              LOGOUT
+            </Button>
+          ) : null}
         </div>
       </Nav>
       {isOpenLogModal ? (
         <Modal onClick={handleModalClick}>
-          <LoginModal onSubmitClick={handleCloseModal} />
+          <LoginModal onSubmit={handleLoginModalSubmit} />
         </Modal>
       ) : null}
     </Wrapper>

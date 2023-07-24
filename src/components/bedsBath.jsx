@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "./button";
 import styled from "@emotion/styled";
 import { colors } from "../styles";
 import { typography } from "../styles";
 
 const ModalOverlay = styled.div`
-  position: fixed;
+  z-index: 100;
+  position: absolute;
   left: 0;
   right: 0;
   width: 254px;
@@ -61,7 +62,7 @@ const SelectWrapper = styled.div`
   width: 101px;
   gap: 0px;
   display: flex;
-  flex-directon: row;
+  flex-direction: row;
   border: none;
 `;
 
@@ -71,54 +72,152 @@ const ButtonContainer = styled.div`
   margin-top: 8px;
 `;
 
-const BedsBaths = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-
+const BedsBaths = ({ modalIsOpen, setModalIsOpen, initialState, setModalData }) => {
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [beds, setBeds] = useState(0);
+  const [baths, setBaths] = useState(0);
+  const modalRef = useRef(null);
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    setModalIsOpen({ ...initialState, beds: true });
   };
-
   const handleModalClose = () => {
-    setModalIsOpen(false);
+    setModalIsOpen(initialState);
+  };
+  const handleApplyFilter = () => {
+    handleModalClose();
+    setModalData((data) => ({...data, beds: { beds, baths } }))
+    // console.log({ beds, baths });
   };
 
-  const handleApplyFilter = () => {
-    // Aquí puedes realizar cualquier acción con los valores de los checkboxes
-    // Por ejemplo, puedes enviarlos a una API o utilizarlos en tu lógica de filtrado
-    setModalIsOpen(false);
-  };
   return (
-    <div style={{ paddingLeft: "20px" }}>
+    <div style={{ paddingLeft: "20px", position: "relative" }}>
       <Button type="primary" size="lg" rounded onClick={handleModalOpen}>
         BEDS & BATH
       </Button>
 
-      <ModalOverlay isOpen={modalIsOpen} onRequestClose={handleModalClose}>
-        <CustomModalContainer>
+      <ModalOverlay isOpen={modalIsOpen.beds}>
+        <CustomModalContainer ref={modalRef}>
           <OptionsContainer>
             <LabelText>BEDS</LabelText>
             <SelectWrapper>
-              <SelectButton style={{ borderRadius: "8px 0px 0px 8px" }}>
+              <SelectButton
+                onClick={() => {
+                  setBeds(0);
+                }}
+                style={{
+                  borderRadius: "8px 0px 0px 8px",
+                  backgroundColor:
+                    beds === 0 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
                 Any
               </SelectButton>
-              <SelectButton>1+</SelectButton>
-              <SelectButton>2+</SelectButton>
-              <SelectButton>3+</SelectButton>
-              <SelectButton style={{ borderRadius: "0px 8px 8px 0px" }}>
+              <SelectButton
+                onClick={() => {
+                  setBeds(1);
+                }}
+                style={{
+                  backgroundColor:
+                    beds === 1 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                1+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBeds(2);
+                }}
+                style={{
+                  backgroundColor:
+                    beds === 2 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                2+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBeds(3);
+                }}
+                style={{
+                  backgroundColor:
+                    beds === 3 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                3+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBeds(4);
+                }}
+                style={{
+                  borderRadius: "0px 8px 8px 0px",
+                  backgroundColor:
+                    beds === 4 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
                 4+
               </SelectButton>
             </SelectWrapper>
           </OptionsContainer>
+
           <OptionsContainer>
             <LabelText>BATHS</LabelText>
             <SelectWrapper>
-              <SelectButton style={{ borderRadius: "8px 0px 0px 8px" }}>
+              <SelectButton
+                onClick={() => {
+                  setBaths(0);
+                }}
+                style={{
+                  borderRadius: "8px 0px 0px 8px",
+                  backgroundColor:
+                    baths === 0 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
                 Any
               </SelectButton>
-              <SelectButton>1+</SelectButton>
-              <SelectButton>2+</SelectButton>
-              <SelectButton>3+</SelectButton>
-              <SelectButton style={{ borderRadius: "0px 8px 8px 0px" }}>
+              <SelectButton
+                onClick={() => {
+                  setBaths(1);
+                }}
+                style={{
+                  backgroundColor:
+                    baths === 1 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                1+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBaths(2);
+                }}
+                style={{
+                  backgroundColor:
+                    baths === 2 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                2+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBaths(3);
+                }}
+                style={{
+                  backgroundColor:
+                    baths === 3 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
+                3+
+              </SelectButton>
+              <SelectButton
+                onClick={() => {
+                  setBaths(4);
+                }}
+                style={{
+                  borderRadius: "0px 8px 8px 0px",
+                  backgroundColor:
+                    baths === 4 ? `${colors.pink[600]}` : colors.white,
+                }}
+              >
                 4+
               </SelectButton>
             </SelectWrapper>

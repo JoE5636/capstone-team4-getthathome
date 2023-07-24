@@ -5,7 +5,8 @@ import { RiArrowDownSLine } from "react-icons/ri";
 import { colors } from "../styles";
 
 const ModalOverlay = styled.div`
-  position: fixed;
+  z-index: 100;
+  position: absolute;
   left: 0;
   right: 0;
   width: 247px;
@@ -97,17 +98,18 @@ const StyledInputText = styled.input`
   appearance: none;
 `;
 
-const MoreOptions = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const MoreOptions = ({ modalIsOpen, setModalIsOpen, initialState, setModalData }) => {
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [petsChecked, setPetsChecked] = useState(false);
-  const [areaRange, setAreaRange] = useState("");
+  const [areaRange, setAreaRange] = useState({ min: null, max: null });
+  const { min, max } = areaRange;
 
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    setModalIsOpen({ ...initialState, more: true });
   };
 
   const handleModalClose = () => {
-    setModalIsOpen(false);
+    setModalIsOpen(initialState);
   };
 
   const handlePetsChange = (event) => {
@@ -115,22 +117,23 @@ const MoreOptions = () => {
   };
 
   const handleAreaRangeChange = (event) => {
-    setAreaRange(event.target.value);
+    const { name, value } = event.target;
+    setAreaRange({ ...areaRange, [name]: value });
   };
 
   const handleDoneAction = () => {
-    // Aquí puedes realizar cualquier acción con el rango de precios seleccionado
-    // Por ejemplo, puedes enviarlo a una API, almacenarlo en el estado global, etc.
-    setModalIsOpen(false);
+    // console.log({ petsChecked, areaRange });
+    setModalData((data) => ({...data, more: { petsChecked, areaRange } }))
+    handleModalClose();
   };
-
+  let isOpen;
   return (
-    <div style={{ paddingLeft: "20px" }}>
+    <div style={{ paddingLeft: "20px", position: "relative" }}>
       <Button type="primary" size="lg" rounded onClick={handleModalOpen}>
         MORE <RiArrowDownSLine />
       </Button>
 
-      <ModalOverlay isOpen={modalIsOpen} onRequestClose={handleModalClose}>
+      <ModalOverlay isOpen={modalIsOpen.more} onRequestClose={handleModalClose}>
         <CustomModalContainer>
           <StyledInputContainer>
             <StyledInput
@@ -144,16 +147,18 @@ const MoreOptions = () => {
           <LabelText>AREA IN M2</LabelText>
           <InputContainer>
             <StyledInputText
-              type="text"
+              type="number"
+              name="min"
               placeholder="min"
-              value={areaRange}
+              value={min}
               onChange={handleAreaRangeChange}
             />
             <span> - </span>
             <StyledInputText
-              type="text"
+              type="number"
+              name="max"
               placeholder="max"
-              value={areaRange}
+              value={max}
               onChange={handleAreaRangeChange}
             />
           </InputContainer>
@@ -170,8 +175,6 @@ const MoreOptions = () => {
           </ButtonContainer>
         </CustomModalContainer>
       </ModalOverlay>
-
-      {areaRange && <p>Selected Price: {areaRange}</p>}
     </div>
   );
 };

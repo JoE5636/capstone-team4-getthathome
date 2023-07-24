@@ -35,11 +35,18 @@ const CheckboxText = styled.span`
   ${typography.text.sm}
 `;
 
-function Checkbox({ text, value, checked, disabled, onChange }) {
+function Checkbox({
+  text,
+  value,
+  checked,
+  disabled,
+  onChange,
+  type = "checkbox",
+}) {
   return (
     <CheckboxContainer>
       <StyledCheckbox
-        type="checkbox"
+        type={type}
         name="propertyType"
         value={value}
         checked={checked}

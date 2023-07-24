@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { colors } from "../styles";
-import { getUser } from "../services/user/userService";
+// import { getUser } from "../services/user/userService";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Button from "../components/button";
+import { useAuth } from "../context/authContext";
 
 const NavStyledContainer = styled.div`
   width: 100vw;
@@ -50,15 +51,7 @@ const NavStyledContent = styled.div``;
 
 const NavStyled = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    getUser()
-      .then((user) => {
-        setUser(user);
-      })
-      .catch((error) => console.log(error));
-  }, []);
+  const { user } = useAuth();
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);

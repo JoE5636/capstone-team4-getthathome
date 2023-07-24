@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import Select from "react-select";
-import { RiUploadLine } from "react-icons/ri";
 import { useState } from "react";
 import { colors } from "../styles";
 import { typography } from "../styles";
@@ -12,6 +11,7 @@ import Checkbox from "../components/checkbox";
 import Button from "../components/button";
 import Footer from "../components/footer";
 import Header from "../components/header";
+import { createProperty } from "../services/properties/properties.service";
 
 const Container = styled.div`
   width: 1200px;
@@ -87,10 +87,71 @@ const NoPhotos = styled.div`
 `;
 
 function PropertyListing() {
-  const [propertyType, setPropertyType] = useState("");
+  const [isRenting, setisRenting] = useState(true);
+  const [photos, setPhotos] = useState([]);
+  const [checked, setChecked] = useState([]);
+  const [formData, setFormData] = useState({
+    operation: "",
+    address: "",
+    category: checked,
+    price: 0,
+    maintenance: 0,
+    pets: false,
+    bedrooms: 0,
+    bathrooms: 0,
+    area: 0,
+    description: "",
+  });
 
-  const handlePropertyTypeChange = (event) => {
-    setPropertyType(event.target.value);
+  console.log(photos);
+
+  const handlePhotoChange = (event) => {
+    const files = Array.from(event.target.files);
+    setPhotos(files);
+  };
+
+  const handleSubmit = () => {
+    console.log({ ...formData, ...photos });
+
+    createProperty({ ...formData, ...photos });
+  };
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    if (type === "checkbox") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: checked,
+      }));
+      console.log(setFormData);
+    } else {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: type === "number" ? parseFloat(value) : value,
+      }));
+    }
+  };
+
+  const isChecked = (value) => value === checked;
+
+  const onSelect = ({ target: { value } }) => {
+    setChecked(value);
+    setFormData({ ...formData, category: value });
+  };
+
+  const handleSelectChange = (selectedOption, field) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [field]: selectedOption.value,
+    }));
+  };
+
+  const handlePetsCheckboxChange = (event) => {
+    const { checked } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      pets: checked,
+    }));
   };
 
   const bathOptions = [
@@ -112,7 +173,10 @@ function PropertyListing() {
       <Header />
       <Container>
         <Title>Create a property listing</Title>
-        <TypeSelect />
+        <TypeSelect
+          isRenting={isRenting}
+          handleClick={(renting) => setisRenting(renting)}
+        />
         <ListingInput
           icon={<BiSearch style={{ width: "20px", height: "20px" }} />}
           id="address"
@@ -121,41 +185,76 @@ function PropertyListing() {
           type="text"
           placeholder="start typing to autocomplete"
           isFullWidth={true}
+          value={formData.address}
+          onChange={handleChange}
         />
-        <ListingInput
-          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-          id="rent"
-          name="rent"
-          label={"Monthly Rent"}
-          type="text"
-          placeholder="$"
-          isFullWidth={false}
-        />
-        <ListingInput
-          icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
-          id="manitanance"
-          name="manitanance"
-          label={"Manitanance"}
-          type="text"
-          placeholder="$"
-          isFullWidth={false}
-        />
+        {!isRenting && (
+          <ListingInput
+            icon={<BiDollarCircle style={{ width: "20px", height: "20px" }} />}
+            id="price"
+            name="price"
+            label={"Price"}
+            type="text"
+            placeholder="$"
+            isFullWidth={false}
+            value={formData.price}
+            onChange={handleChange}
+          />
+        )}
+        <>
+          {isRenting && (
+            <>
+              <ListingInput
+                icon={
+                  <BiDollarCircle style={{ width: "20px", height: "20px" }} />
+                }
+                id="price"
+                name="price"
+                label={"Monthly Rent"}
+                type="text"
+                placeholder="$"
+                isFullWidth={false}
+                value={formData.price}
+                onChange={handleChange}
+              />
+              <ListingInput
+                icon={
+                  <BiDollarCircle style={{ width: "20px", height: "20px" }} />
+                }
+                id="maintenance"
+                name="maintenance"
+                label={"Maintenance"}
+                type="text"
+                placeholder="$"
+                isFullWidth={false}
+                value={formData.maintenance}
+                onChange={handleChange}
+              />
+            </>
+          )}
+        </>
+
         <TypeWrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
             Property Type
           </label>
           <div style={{ display: "flex", flexDirection: "row", gap: "16px" }}>
             <Checkbox
-              text="Apartment"
-              value="apartment"
-              checked={propertyType === "apartment"}
-              onChange={handlePropertyTypeChange}
+              name="propertyType"
+              type="radio"
+              text="Department"
+              value="Department"
+              // checked={true}
+              checked={isChecked("Department")}
+              onChange={onSelect}
             />
             <Checkbox
-              text="House"
-              value="house"
-              checked={propertyType === "house"}
-              onChange={handlePropertyTypeChange}
+              name="propertyType"
+              type="radio"
+              text="Home"
+              value="Home"
+              checked={isChecked("Home")}
+              onChange={onSelect}
             />
           </div>
         </TypeWrapper>
@@ -166,6 +265,12 @@ function PropertyListing() {
             </label>
             <Select
               options={bedroomOptions}
+              value={bedroomOptions.find(
+                (option) => option.value === formData.bedrooms
+              )}
+              onChange={(selectedOption) =>
+                handleSelectChange(selectedOption, "bedrooms")
+              }
               styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
@@ -198,6 +303,12 @@ function PropertyListing() {
             </label>
             <Select
               options={bathOptions}
+              value={bathOptions.find(
+                (option) => option.value === formData.bathrooms
+              )}
+              onChange={(selectedOption) =>
+                handleSelectChange(selectedOption, "bathrooms")
+              }
               styles={{
                 control: (baseStyles, state) => ({
                   ...baseStyles,
@@ -233,21 +344,42 @@ function PropertyListing() {
             <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
               area in m2
             </label>
-            <AreaInput style={{ width: "120px" }} />
+            <AreaInput
+              style={{ width: "120px" }}
+              name="area" // Asigna el nombre del campo
+              value={formData.area} // Utiliza el valor del estado para el campo
+              onChange={handleChange}
+            />
           </div>
         </OptionsWrapper>
-        <Wrapper>
-          <Checkbox text="Pets Allowed" value="pets" />
-          <p style={{ fontSize: ".7rem" }}>
-            Allowing pets increases the likehood of renters liking the property
-            by 9001%. It also makes you a better person.
-          </p>
-        </Wrapper>
+        <>
+          {isRenting && (
+            <Wrapper>
+              <Checkbox
+                name="pets"
+                text="Pets Allowed"
+                value="pets"
+                checked={formData.pets}
+                onChange={handlePetsCheckboxChange}
+              />
+              <p style={{ fontSize: ".7rem" }}>
+                Allowing pets increases the likehood of renters liking the
+                property by 9001%. It also makes you a better person.
+              </p>
+            </Wrapper>
+          )}
+        </>
         <Wrapper>
           <label style={{ textTransform: "uppercase", fontSize: ".75rem" }}>
             about this property
           </label>
-          <TextArea rows={10} placeholder="My apartment is great because..." />
+          <TextArea
+            name="description"
+            onChange={handleChange}
+            value={formData.description}
+            valueRows={10}
+            placeholder="My apartment is great because..."
+          />
         </Wrapper>
         <Wrapper>
           <SubTitle>Photos</SubTitle>
@@ -263,13 +395,20 @@ function PropertyListing() {
                 gap: "8px",
               }}
             >
-              <Button type="primary">
+              <input
+                type="file"
+                id="fileInput"
+                accept=".jpg, .jpeg, .png"
+                onChange={handlePhotoChange}
+                multiple
+              />
+              {/* <Button type="primary">
                 <RiUploadLine style={{ width: "20px", height: "20px" }} />
                 Choose a file
               </Button>
               <span style={{ fontSize: ".8rem", color: `${colors.gray[500]}` }}>
                 No file chosen
-              </span>
+              </span> */}
             </div>
             <span style={{ fontSize: ".9rem", color: `${colors.gray[500]}` }}>
               Only images, max 5MB
@@ -282,6 +421,7 @@ function PropertyListing() {
         <Button
           style={{ padding: "20px", borderRadius: "10px" }}
           type="primary"
+          onClick={handleSubmit}
         >
           PUBLISH PROPPERTY LISTING
         </Button>

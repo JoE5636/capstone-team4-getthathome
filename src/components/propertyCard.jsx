@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 const CardContainer = styled.div`
   margin: 10px;
   width: 300px;
-  heigth: 306px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.1);
 `;
@@ -122,11 +121,13 @@ function PropertyCard({
   operation,
   photos,
   price,
+  category,
   address,
   bedrooms,
   bathrooms,
   area,
   pets,
+  rol=0
 }) {
   return (
     <CardContainer>
@@ -146,11 +147,11 @@ function PropertyCard({
         <TypeContainer>
           <PropertyInfo>
             <ImCoinDollar></ImCoinDollar>
-            <p>{price / 100}</p>
+            <p>{price }</p>
           </PropertyInfo>
           <PropertyInfo>
             <RiBuildingLine></RiBuildingLine>
-            <p>Apartment</p>
+            <p>{category}</p>
           </PropertyInfo>
         </TypeContainer>
         <AddressInfo>
@@ -172,16 +173,18 @@ function PropertyCard({
           <Pills>{pets ? <FaPaw /> : null}</Pills>
         </PillsContainer>
       </InfoContainer>
-      <ActionContainer>
-        <ActionSpan>
-          <BiEdit />
-          Edit
-        </ActionSpan>
-        <ActionSpan>
-          <SlClose />
-          Close
-        </ActionSpan>
-      </ActionContainer>
+      {rol === 0 ? <></> :
+        <ActionContainer>
+          <ActionSpan>
+            <BiEdit />
+            Edit
+          </ActionSpan>
+          <ActionSpan>
+            <SlClose />
+            Close
+          </ActionSpan>
+        </ActionContainer>
+      }
     </CardContainer>
   );
 }

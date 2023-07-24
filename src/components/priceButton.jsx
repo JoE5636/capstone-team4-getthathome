@@ -5,7 +5,8 @@ import { ImCoinDollar } from "react-icons/im";
 import { colors } from "../styles";
 
 const ModalOverlay = styled.div`
-  position: fixed;
+z-index: 100;
+  position: absolute;
   left: 0;
   right: 0;
   width: 247px;
@@ -67,35 +68,39 @@ const StyledInput = styled.input`
   padding-left: 30px; /* Espacio para el icono en el lado izquierdo */
 `;
 
-const PriceButton = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [priceRange, setPriceRange] = useState("");
-
+const PriceButton = ({ modalIsOpen, setModalIsOpen, initialState, setModalData }) => {
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [priceRange, setPriceRange] = useState({ min: null, max: null });
+  const { min, max } = priceRange;
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    setModalIsOpen({ ...initialState, price: true });
   };
 
   const handleModalClose = () => {
-    setModalIsOpen(false);
+    setModalIsOpen(initialState);
   };
 
   const handlePriceRangeChange = (event) => {
-    setPriceRange(event.target.value);
+    const { name, value } = event.target;
+    setPriceRange({ ...priceRange, [name]: parseInt(value) });
   };
 
   const handlePriceSave = () => {
-    // Aquí puedes realizar cualquier acción con el rango de precios seleccionado
-    // Por ejemplo, puedes enviarlo a una API, almacenarlo en el estado global, etc.
-    setModalIsOpen(false);
+    handleModalClose();
+    setModalData((data) => ({...data, price: priceRange }))
+    // console.log(priceRange);
   };
 
   return (
-    <div style={{ paddingLeft: "20px" }}>
+    <div style={{ paddingLeft: "20px", position: "relative" }}>
       <Button type="primary" size="lg" rounded onClick={handleModalOpen}>
         PRICE
       </Button>
 
-      <ModalOverlay isOpen={modalIsOpen} onRequestClose={handleModalClose}>
+      <ModalOverlay
+        isOpen={modalIsOpen.price}
+        onRequestClose={handleModalClose}
+      >
         <CustomModalContainer>
           <LabelText>PRICE RANGE</LabelText>
           <InputContainer>
@@ -104,9 +109,10 @@ const PriceButton = () => {
                 <ImCoinDollar />
               </IconContainer>
               <StyledInput
-                type="text"
+                type="number"
+                name="min"
                 placeholder="min"
-                value={priceRange}
+                value={min}
                 onChange={handlePriceRangeChange}
               />
             </StyledInputContainer>
@@ -118,9 +124,10 @@ const PriceButton = () => {
               </IconContainer>
               {/* Input con el placeholder personalizado */}
               <StyledInput
-                type="text"
+                type="number"
+                name="max"
                 placeholder="max"
-                value={priceRange}
+                value={max}
                 onChange={handlePriceRangeChange}
               />
             </StyledInputContainer>
@@ -137,8 +144,6 @@ const PriceButton = () => {
           </ButtonContainer>
         </CustomModalContainer>
       </ModalOverlay>
-
-      {priceRange && <p>Selected Price: {priceRange}</p>}
     </div>
   );
 };

@@ -4,7 +4,8 @@ import styled from "@emotion/styled";
 import { colors } from "../styles";
 
 const ModalOverlay = styled.div`
-  position: fixed;
+  z-index: 100;
+  position: absolute;
   left: 0;
   right: 0;
   width: 247px;
@@ -80,17 +81,17 @@ const StyledInput = styled.input`
   }
 `;
 
-const PropertyType = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const PropertyType = ({ modalIsOpen, setModalIsOpen, initialState,setModalData }) => {
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [housesChecked, setHousesChecked] = useState(false);
   const [apartmentsChecked, setApartmentsChecked] = useState(false);
 
   const handleModalOpen = () => {
-    setModalIsOpen(true);
+    setModalIsOpen({ ...initialState, propType: true });
   };
 
   const handleModalClose = () => {
-    setModalIsOpen(false);
+    setModalIsOpen(initialState);
   };
 
   const handleHousesChange = (event) => {
@@ -102,17 +103,19 @@ const PropertyType = () => {
   };
 
   const handleApplyFilter = () => {
-    // Aquí puedes realizar cualquier acción con los valores de los checkboxes
-    // Por ejemplo, puedes enviarlos a una API o utilizarlos en tu lógica de filtrado
-    setModalIsOpen(false);
+    setModalData((data) => ({...data, propType: { house: housesChecked, apartment: apartmentsChecked } }))
+    handleModalClose();
   };
   return (
-    <div style={{ paddingLeft: "20px" }}>
+    <div style={{ paddingLeft: "20px", position: "relative" }}>
       <Button type="primary" size="lg" rounded onClick={handleModalOpen}>
         PROPERTY TYPE
       </Button>
 
-      <ModalOverlay isOpen={modalIsOpen} onRequestClose={handleModalClose}>
+      <ModalOverlay
+        isOpen={modalIsOpen.propType}
+        onRequestClose={handleModalClose}
+      >
         <CustomModalContainer>
           <LabelText>Property type</LabelText>
           <InputContainer>

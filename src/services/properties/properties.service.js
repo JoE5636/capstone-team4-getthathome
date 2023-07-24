@@ -6,3 +6,17 @@ export const fetchProperties = async () => {
 
   return data;
 };
+
+export async function createProperty(formData) {
+  const data = await apiFetch("props", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "4167c8114b3ffe99dc1aa8c6be97199e",
+    },
+    body: formData,
+  });
+  console.log(data);
+
+  return data;
+}

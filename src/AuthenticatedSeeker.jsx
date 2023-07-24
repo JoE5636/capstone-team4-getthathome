@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import LandingPage from "./pages/landingPage";
 import Properties from "./pages/properties";
 import PropertiesList from "./pages/propertyList";
+import PropertyDetail from "./pages/propertyDetail";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -18,6 +19,7 @@ export default function AuthenticatedSeeKer() {
           <Route path="home" element={<LandingPage />} />
           <Route path="myproperties" element={<Properties />} />
           <Route path="properties" element={<PropertiesList />} />
+          <Route exact path="/properties/:id" element={<PropertyDetail />} />
           <Route path="*" element={<Navigate to="/home" replace={true} />} />
         </Route>
       </Routes>

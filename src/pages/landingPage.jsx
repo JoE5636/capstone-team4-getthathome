@@ -9,6 +9,7 @@ import PropertyCard from "../components/propertyCard";
 import TeamSection from "../components/TeamSection";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Depa from "../assets/depa1.png";
 
 const sampleData = [
   {
@@ -25,11 +26,7 @@ const sampleData = [
     description: "Hermosa casa en venta con amplio jardín.",
     created_at: "2023-07-21T14:15:54.448Z",
     updated_at: "2023-07-21T14:15:54.562Z",
-    photos: [
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--56f848cbedce84243a006ba7be03cffecd1c64b8/img01.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBCdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--03d47c94c8b38043afda82e8d1c5d75f16c004f9/img02.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--de4aacd9461aebc9d6855526f43f87ff06fb1423/img03.jpg",
-    ],
+    photos: { Depa },
   },
   {
     id: 2,
@@ -45,11 +42,7 @@ const sampleData = [
     description: "Apartamento en renta cerca del centro comercial.",
     created_at: "2023-07-21T14:15:54.453Z",
     updated_at: "2023-07-21T14:15:54.631Z",
-    photos: [
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--291395e65f1b0e0f8aa74e0638186eeed64caf41/img04.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc1e7ce5185b6ec7569aab0e01f0987bf8146a98/img05.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBDdz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--9f791c8d5871d10d4b08cfb5c57236e3193554e8/img06.jpg",
-    ],
+    photos: { Depa },
   },
   {
     id: 3,
@@ -65,11 +58,7 @@ const sampleData = [
     description: "Casa en venta con piscina y vista al mar.",
     created_at: "2023-07-21T14:15:54.458Z",
     updated_at: "2023-07-21T14:15:54.687Z",
-    photos: [
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ebc4cf48a37833fc38a452642e66e4c18035298c/img07.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEUT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--b2fe02c17004be64042ea2551f84aa80ac67c29c/img08.jpg",
-      "http://127.0.0.1:3000/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBEZz09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dc9bb404084c13099896d58074775899b458be1b/img09.jpg",
-    ],
+    photos: { Depa },
   },
 ];
 

@@ -1,4 +1,4 @@
-import { User, tokenKey } from "../../config";
+import { tokenKey } from "../../config";
 import apiFetch from "../api-fetch";
 
 export async function login(credentials) {
@@ -7,9 +7,8 @@ export async function login(credentials) {
   });
 
   sessionStorage.setItem(tokenKey, auth_token);
-  //   sessionStorage.setItem(User, user.json());
 
-  console.log(user);
+  // console.log(user);
   return user;
 }
 

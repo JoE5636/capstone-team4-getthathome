@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
-import { useState, useEffect } from "react";
-import { getUser } from "./services/user/userService";
+// import { useState, useEffect } from "react";
+// import { getUser } from "./services/user/userService";
 import UnauthenticatedApp from "./UnauthenticatedApp";
 import AuthenticatedLandlord from "./AuthenticatedLandlord";
 import AuthenticatedSeeker from "./AuthenticatedSeeker";
+import { useAuth } from "./context/authContext";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -11,22 +12,11 @@ const Wrapper = styled.div`
 `;
 
 function App() {
-  // const user = { role: 0, value: false };
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    getUser()
-      .then((user) => {
-        setUser(user);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
-  console.log(user);
+  const { user } = useAuth();
 
   return (
     <Wrapper>
-      {user !== null ? (
+      {user ? (
         user.role === 1 ? (
           <AuthenticatedLandlord />
         ) : (

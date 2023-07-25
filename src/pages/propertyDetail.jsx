@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { showProperty } from "../services/properties/properties.service";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
@@ -12,7 +12,7 @@ import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
 import Header from "../components/header";
 import Footer from "../components/footer";
-
+import LoginModal from "../components/loginModal";
 import Button from "../components/button";
 import { colors } from "../styles";
 import { useAuth } from "../context/authContext";
@@ -59,7 +59,21 @@ const OptionContent = styled.div`
   box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.2);
 `;
 
-const Option = ({ property }) => {
+const Modal = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgb(23 23 23 / 75%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 1;
+`;
+
+const Option = ({ property, onLoginClick }) => {
   const { user } = useAuth();
   const { setFavorites } = useFavorites();
 
@@ -70,7 +84,7 @@ const Option = ({ property }) => {
           {user === null && (
             <OptionContent>
               <p>Log in or Join to contact the advertiser</p>
-              <Button type="primary" rounded>
+              <Button type="primary" rounded onClick={onLoginClick}>
                 <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
                 LOGIN
               </Button>
@@ -246,9 +260,13 @@ const Location = styled.div`
   }
 `;
 
-const PropertyDetail = () => {
+function PropertyDetail() {
+  const { login } = useAuth();
+  const [isOpenLogModal, setIsOpenLogModal] = useState(false);
   const { id } = useParams();
   const [properties, setProperties] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPropertyData = async () => {
@@ -264,10 +282,34 @@ const PropertyDetail = () => {
   if (!properties || !properties.photos) {
     return <div></div>;
   }
+
+  function handleLoginClick() {
+    setIsOpenLogModal(true);
+  }
+
+  function handleCloseModal() {
+    setIsOpenLogModal(false);
+  }
+
+  function handleModalClick(event) {
+    if (event.target === event.currentTarget) {
+      handleCloseModal();
+    }
+  }
+  function handleLoginModalSubmit(formData) {
+    login(formData);
+    handleCloseModal();
+  }
+
+  function handleSignupClick() {
+    navigate("/role");
+  }
+
   console.log("Images:", properties.photos);
+
   return (
     <>
-      <Header />
+      <Header onOtherClick={handleSignupClick} />
       <Container>
         <LeftContent>
           <LeftContentWrapper>
@@ -332,12 +374,20 @@ const PropertyDetail = () => {
           </LeftContentWrapper>
         </LeftContent>
         <RightContent>
-          <Option property={properties}></Option>
+          <Option
+            property={properties}
+            onLoginClick={handleLoginClick}
+          ></Option>
         </RightContent>
+        {isOpenLogModal ? (
+          <Modal onClick={handleModalClick}>
+            <LoginModal onSubmit={handleLoginModalSubmit} />
+          </Modal>
+        ) : null}
       </Container>
       <Footer />
     </>
   );
-};
+}
 
 export default PropertyDetail;

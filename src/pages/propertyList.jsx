@@ -32,7 +32,7 @@ const MainWrapper = styled.div`
   background-color: ${colors.white};
 `;
 
-const PropertiesWrapper = styled.div`
+export const PropertiesWrapper = styled.div`
   width: 1190px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -98,13 +98,13 @@ function PropertiesList() {
         const amountBed = !modalData.beds
           ? 0
           : !modalData.beds.beds
-          ? 0
-          : modalData.beds.beds;
+            ? 0
+            : modalData.beds.beds;
         const amountBath = !modalData.beds
           ? 0
           : !modalData.beds.baths
-          ? 0
-          : modalData.beds.baths;
+            ? 0
+            : modalData.beds.baths;
         let { min, max } = modalData.price;
         if (!min) min = 0;
         if (!max) max = 1000000;

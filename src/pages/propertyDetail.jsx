@@ -16,6 +16,7 @@ import Footer from "../components/footer";
 import Button from "../components/button";
 import { colors } from "../styles";
 import { useAuth } from "../context/authContext";
+import { useFavorites } from "../context/favoriteContext";
 
 // import depaImg from "../assets/depa1.png";
 
@@ -59,9 +60,10 @@ const OptionContent = styled.div`
   box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.2);
 `;
 
-const Option = () => {
+const Option = ({ property }) => {
   const { user } = useAuth();
-  console.log({ user })
+  const { setFavorites } = useFavorites();
+
   return (
     <>
       <OptionContainer>
@@ -88,7 +90,9 @@ const Option = () => {
               <Button type="primary" rounded>
                 CONTACT ADVERTISER
               </Button>
-              <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
+              <a onClick={() => { setFavorites(property) }}>
+                <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
+              </a>
               <p>Add to favorites</p>
             </OptionContent>
           ) : null}
@@ -325,7 +329,7 @@ const PropertyDetail = () => {
           </LeftContentWrapper>
         </LeftContent>
         <RightContent>
-          <Option>
+          <Option property={properties}>
           </Option>
         </RightContent>
       </Container>

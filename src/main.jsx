@@ -5,6 +5,7 @@ import { Global } from "@emotion/react";
 import App from "./App.jsx";
 import { global, reset } from "./styles";
 import { AuthProvider } from "./context/authContext.jsx";
+import { FavoritesProvider } from "./context/favoriteContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Global styles={global} />
     <BrowserRouter>
       <AuthProvider>
-        <App />
+        <FavoritesProvider>
+          <App />
+        </FavoritesProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

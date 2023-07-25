@@ -36,6 +36,7 @@ const LeftContentWrapper = styled.div`
 
 const RightContent = styled.div`
   flex: 1;
+
 `;
 const OptionContainer = styled.div`
   padding: 32px 0;
@@ -60,12 +61,12 @@ const OptionContent = styled.div`
 
 const Option = () => {
   const { user } = useAuth();
-
+  console.log({ user })
   return (
     <>
       <OptionContainer>
         <OptionWrapper>
-          {user === null && (
+          {user === null || user?.role === null && (
             <OptionContent>
               <p>Log in or Join to contact the advertiser</p>
               <Button type="primary" rounded>
@@ -324,7 +325,8 @@ const PropertyDetail = () => {
           </LeftContentWrapper>
         </LeftContent>
         <RightContent>
-          <Option></Option>
+          <Option>
+          </Option>
         </RightContent>
       </Container>
       <Footer />

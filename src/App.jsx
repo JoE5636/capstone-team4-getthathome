@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 function App() {
   const { user } = useAuth();
-
+  console.log({ user })
   return (
     <Wrapper>
       {user ? (

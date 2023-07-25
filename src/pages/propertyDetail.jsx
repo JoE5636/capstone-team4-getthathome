@@ -5,6 +5,7 @@ import { showProperty } from "../services/properties/properties.service";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { ImCoinDollar } from "react-icons/im";
 import { RiBuildingLine, RiCoinsLine } from "react-icons/ri";
+import { AiOutlineHeart } from "react-icons/ai";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { BiBed, BiBath, BiArea, BiEdit } from "react-icons/bi";
 import { SlClose } from "react-icons/sl";
@@ -14,6 +15,7 @@ import Footer from "../components/footer";
 
 import Button from "../components/button";
 import { colors } from "../styles";
+import { useAuth } from "../context/authContext";
 
 // import depaImg from "../assets/depa1.png";
 
@@ -57,17 +59,38 @@ const OptionContent = styled.div`
 `;
 
 const Option = () => {
+  const { user } = useAuth();
+
   return (
     <>
       <OptionContainer>
         <OptionWrapper>
-          <OptionContent>
-            <p>Log in or Join to contact the advertiser</p>
-            <Button type="primary" rounded>
-              <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
-              LOGIN
-            </Button>
-          </OptionContent>
+          {user === null && (
+            <OptionContent>
+              <p>Log in or Join to contact the advertiser</p>
+              <Button type="primary" rounded>
+                <AiOutlineUserAdd style={{ width: "24px", height: "24px" }} />
+                LOGIN
+              </Button>
+            </OptionContent>
+          )}
+          {user && user.role === 1 ? (
+            <>
+              <Button type="primary" rounded>
+                <BiEdit style={{ width: "24px", height: "24px" }} />
+                EDIT PROPERTY
+              </Button>
+            </>
+          ) : null}
+          {user && user.role === 2 ? (
+            <OptionContent>
+              <Button type="primary" rounded>
+                CONTACT ADVERTISER
+              </Button>
+              <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
+              <p>Add to favorites</p>
+            </OptionContent>
+          ) : null}
         </OptionWrapper>
       </OptionContainer>
     </>

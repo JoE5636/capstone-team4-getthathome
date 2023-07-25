@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "@emotion/styled";
-import { fetchProperty } from "../services/properties/properties.service";
+import { fetchProperties } from "../services/properties/properties.service";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { ImCoinDollar } from "react-icons/im";
 import { RiBuildingLine, RiCoinsLine } from "react-icons/ri";
@@ -222,7 +222,7 @@ const PropertyDetail = () => {
   useEffect(() => {
     const fetchPropertyData = async () => {
       try {
-        const data = await fetchProperty(id);
+        const data = await fetchProperties(id);
         setProperties(data);
       } catch (error) {
         console.error("Error fetching property:", error);

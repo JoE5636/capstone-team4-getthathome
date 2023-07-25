@@ -35,7 +35,7 @@ const MainWrapper = styled.div`
 const PropertiesWrapper = styled.div`
   width: 1190px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   flex-direction: row;
   gap: 16px 0px;
@@ -63,10 +63,10 @@ function PropertiesList() {
     more: false,
   };
   const initialValues = {
-    price: {min:null, max:null},
-    propType:  { house: false, apartment: false } ,
-    beds: { beds: 0, baths: 0 } ,
-    more: { petsChecked: false, areaRange:{ min: null, max: null } } ,
+    price: { min: null, max: null },
+    propType: { house: false, apartment: false },
+    beds: { beds: 0, baths: 0 },
+    more: { petsChecked: false, areaRange: { min: null, max: null } },
   };
   const operationOptions = [
     { value: "rent", label: "Rent" },
@@ -83,63 +83,76 @@ function PropertiesList() {
     (async () => {
       const data = await fetchProperties();
       setProperties(data);
-      setPropertiesFiltered(data)
+      setPropertiesFiltered(data);
     })();
   }, []);
 
   useEffect(() => {
-    console.log(modalData)
-    setPropertiesFiltered(properties.filter((property) => {
-      const isPetChecked = modalData.more && modalData.more.petsChecked;
-      const isHouseChecked = modalData.propType && modalData.propType.house;
-      const isApartmentChecked = modalData.propType && modalData.propType.apartment;
-      const amountBed = !modalData.beds ? 0 : !modalData.beds.beds ? 0 : modalData.beds.beds;
-      const amountBath = !modalData.beds ? 0 : !modalData.beds.baths ? 0 : modalData.beds.baths;
-      let {min, max} = modalData.price;
-      if (!min) min = 0
-      if (!max) max = 1000000
-      if (isPetChecked && !property.pets) {
-        return false;
-      }
+    console.log(modalData);
+    setPropertiesFiltered(
+      properties.filter((property) => {
+        const isPetChecked = modalData.more && modalData.more.petsChecked;
+        const isHouseChecked = modalData.propType && modalData.propType.house;
+        const isApartmentChecked =
+          modalData.propType && modalData.propType.apartment;
+        const amountBed = !modalData.beds
+          ? 0
+          : !modalData.beds.beds
+          ? 0
+          : modalData.beds.beds;
+        const amountBath = !modalData.beds
+          ? 0
+          : !modalData.beds.baths
+          ? 0
+          : modalData.beds.baths;
+        let { min, max } = modalData.price;
+        if (!min) min = 0;
+        if (!max) max = 1000000;
+        if (isPetChecked && !property.pets) {
+          return false;
+        }
 
-      const area = modalData.more.areaRange;
-      if (!area.min) area.min = 0
-      if (!area.max) area.max = 1000000
+        const area = modalData.more.areaRange;
+        if (!area.min) area.min = 0;
+        if (!area.max) area.max = 1000000;
 
-      if (isPetChecked && !property.pets) {
-        return false;
-      }
-      
-      // if (isHouseChecked && isApartmentChecked) {
-      //   return true;
-      // }
+        if (isPetChecked && !property.pets) {
+          return false;
+        }
 
-      if (isHouseChecked && property.category !== "Home") {
-        return false;
-      }
-  
-      if (isApartmentChecked && property.category !== "Department") {
-        return false;
-      }
-      if (property.bedrooms < amountBed || property.bathrooms < amountBath){
-        return false;
-      }
-      if (property.price < parseInt(min) || property.price > parseInt(max)){
-        return false;
-      }
-      if (property.area < parseInt(area.min) || property.area > parseInt(area.max)){
-        return false;
-      }
-      if (selectedOption.value ==='rent' && property.operation === "Venta"){
-        return false;
-      }
-      if (selectedOption.value ==='buy' && property.operation === "Renta"){
-        return false;
-      }
-      
-  
-      return true;
-    }));
+        // if (isHouseChecked && isApartmentChecked) {
+        //   return true;
+        // }
+
+        if (isHouseChecked && property.category !== "Home") {
+          return false;
+        }
+
+        if (isApartmentChecked && property.category !== "Department") {
+          return false;
+        }
+        if (property.bedrooms < amountBed || property.bathrooms < amountBath) {
+          return false;
+        }
+        if (property.price < parseInt(min) || property.price > parseInt(max)) {
+          return false;
+        }
+        if (
+          property.area < parseInt(area.min) ||
+          property.area > parseInt(area.max)
+        ) {
+          return false;
+        }
+        if (selectedOption.value === "rent" && property.operation === "Venta") {
+          return false;
+        }
+        if (selectedOption.value === "buy" && property.operation === "Renta") {
+          return false;
+        }
+
+        return true;
+      })
+    );
   }, [modalData, properties, selectedOption]);
 
   // console.log(initialValues);
@@ -148,8 +161,6 @@ function PropertiesList() {
   function handleSignupClick() {
     navigate("/role");
   }
-
-
 
   return (
     <>

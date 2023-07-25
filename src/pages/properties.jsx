@@ -8,6 +8,9 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import Button from "../components/button";
 import { useAuth } from "../context/authContext";
+import { useFavorites } from "../context/favoriteContext";
+import PropertyCard from "../components/propertyCard";
+import { PropertiesWrapper } from "./propertyList";
 
 const NavStyledContainer = styled.div`
   width: 100vw;
@@ -133,10 +136,43 @@ const NavStyled = () => {
 };
 
 const Properties = () => {
+  const { favorites } = useFavorites();
+  console.log({ favorites })
   return (
     <>
       <Header />
       <NavStyled />
+      <PropertiesWrapper>
+        {favorites.map((property) => {
+          const {
+            id,
+            operation,
+            photos,
+            price,
+            address,
+            bedrooms,
+            bathrooms,
+            area,
+            category,
+            pets,
+          } = property;
+
+          const propertyProps = {
+            id,
+            operation,
+            category,
+            photos,
+            price,
+            address,
+            bedrooms,
+            bathrooms,
+            area,
+            pets,
+          };
+
+          return <PropertyCard key={property.id} {...propertyProps} />;
+        })}
+      </PropertiesWrapper>
       <Footer />
     </>
   );

@@ -16,6 +16,7 @@ import Footer from "../components/footer";
 import Button from "../components/button";
 import { colors } from "../styles";
 import { useAuth } from "../context/authContext";
+import { useFavorites } from "../context/favoriteContext";
 
 // import depaImg from "../assets/depa1.png";
 
@@ -36,6 +37,7 @@ const LeftContentWrapper = styled.div`
 
 const RightContent = styled.div`
   flex: 1;
+
 `;
 const OptionContainer = styled.div`
   padding: 32px 0;
@@ -58,14 +60,15 @@ const OptionContent = styled.div`
   box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.2);
 `;
 
-const Option = () => {
+const Option = ({ property }) => {
   const { user } = useAuth();
+  const { setFavorites } = useFavorites();
 
   return (
     <>
       <OptionContainer>
         <OptionWrapper>
-          {user === null && (
+          {user === null || user?.role === null && (
             <OptionContent>
               <p>Log in or Join to contact the advertiser</p>
               <Button type="primary" rounded>
@@ -87,7 +90,9 @@ const Option = () => {
               <Button type="primary" rounded>
                 CONTACT ADVERTISER
               </Button>
-              <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
+              <a onClick={() => { setFavorites(property) }}>
+                <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
+              </a>
               <p>Add to favorites</p>
             </OptionContent>
           ) : null}
@@ -324,7 +329,8 @@ const PropertyDetail = () => {
           </LeftContentWrapper>
         </LeftContent>
         <RightContent>
-          <Option></Option>
+          <Option property={properties}>
+          </Option>
         </RightContent>
       </Container>
       <Footer />

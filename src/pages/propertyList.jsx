@@ -12,6 +12,7 @@ import PriceButton from "../components/priceButton";
 import PropertyType from "../components/propertyType";
 import SearchOption from "../components/searchOption";
 import PropertyCard from "../components/propertyCard";
+import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs"
 
 const Container = styled.div`
   width: 100vw;
@@ -30,6 +31,12 @@ const MainWrapper = styled.div`
   flex-direction: column;
   gap: 20px;
   background-color: ${colors.white};
+
+  .disable-button {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 export const PropertiesWrapper = styled.div`
@@ -55,6 +62,12 @@ const ButtonsWrapper = styled.div`
   gap: 16px;
 `;
 
+const PropertyPage = () =>{
+  return(
+    <></>
+  )
+}
+
 function PropertiesList() {
   const initialState = {
     price: false,
@@ -79,6 +92,10 @@ function PropertiesList() {
   const [modalData, setModalData] = useState(initialValues);
   const [selectedOption, setSelectedOption] = useState(operationOptions[2]);
 
+  const [page, setPage] = useState(1);
+  const max = 6;
+  const pages = 1 + parseInt(propertiesFiltered.length / 6)
+  const numbers = Array.from({ length: pages }, (_, index) => index + 1);
   useEffect(() => {
     (async () => {
       const data = await fetchProperties();
@@ -229,7 +246,7 @@ function PropertiesList() {
             />
           </FiltersWrapper>
           <PropertiesWrapper>
-            {propertiesFiltered.map((property) => {
+            {propertiesFiltered.slice((page-1)*max, (page*max)).map((property) => {
               const {
                 id,
                 operation,
@@ -259,6 +276,33 @@ function PropertiesList() {
               return <PropertyCard key={property.id} {...propertyProps} />;
             })}
           </PropertiesWrapper>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <BsCaretLeftSquareFill
+              onClick={() => {
+                setPage((val) => Math.max(val - 1, 1));
+              }}
+              className={page === 1 ? "disable-button" : ""}
+              style={{ width: "24px", height: "24px", cursor: "pointer" }}
+            />
+            <div>
+              {numbers.map((number) => (
+                <button
+                  key={number}
+                  style={{ backgroundColor: number === page ? '#aaa' : '', width:"30px", height:"30px" }}
+                  onClick={() => setPage(number)}
+                >
+                  {number}
+                </button>
+              ))}
+            </div>
+            <BsCaretRightSquareFill
+              onClick={() => {
+                setPage((val) => Math.min(val + 1, pages));
+              }}
+              className={page === pages ? "disable-button" : ""}
+              style={{ width: "24px", height: "24px", cursor: "pointer" }}
+            />
+          </div>
         </MainWrapper>
       </Container>
       <Footer />

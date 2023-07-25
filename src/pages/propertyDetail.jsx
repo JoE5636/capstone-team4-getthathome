@@ -37,7 +37,6 @@ const LeftContentWrapper = styled.div`
 
 const RightContent = styled.div`
   flex: 1;
-
 `;
 const OptionContainer = styled.div`
   padding: 32px 0;
@@ -68,7 +67,7 @@ const Option = ({ property }) => {
     <>
       <OptionContainer>
         <OptionWrapper>
-          {user === null || user?.role === null && (
+          {user === null && (
             <OptionContent>
               <p>Log in or Join to contact the advertiser</p>
               <Button type="primary" rounded>
@@ -90,7 +89,11 @@ const Option = ({ property }) => {
               <Button type="primary" rounded>
                 CONTACT ADVERTISER
               </Button>
-              <a onClick={() => { setFavorites(property) }}>
+              <a
+                onClick={() => {
+                  setFavorites(property);
+                }}
+              >
                 <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
               </a>
               <p>Add to favorites</p>
@@ -329,8 +332,7 @@ const PropertyDetail = () => {
           </LeftContentWrapper>
         </LeftContent>
         <RightContent>
-          <Option property={properties}>
-          </Option>
+          <Option property={properties}></Option>
         </RightContent>
       </Container>
       <Footer />

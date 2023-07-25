@@ -20,3 +20,10 @@ export async function createProperty(formData) {
 
   return data;
 }
+
+export async function showProperty(id) {
+  const data = await apiFetch(`/properties/${id}`);
+
+  //   console.log(data);
+  return data;
+}

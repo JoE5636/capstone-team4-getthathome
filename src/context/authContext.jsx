@@ -20,7 +20,11 @@ function AuthProvider(props) {
   }
 
   function signup(userData) {
-    createUser(userData).then(setUser).catch(console.log);
+    createUser(userData)
+      .then((user) => {
+        setUser(user.user);
+      })
+      .catch(console.log);
   }
 
   function logout() {

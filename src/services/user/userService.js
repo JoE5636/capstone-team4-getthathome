@@ -10,9 +10,11 @@ import { tokenKey } from "../../config";
 // };
 
 export async function createUser(credentials) {
-  const { token, ...user } = await apiFetch("users", { body: credentials });
+  const { auth_token, ...user } = await apiFetch("users", {
+    body: credentials,
+  });
 
-  sessionStorage.setItem(tokenKey, token);
+  sessionStorage.setItem(tokenKey, auth_token);
 
   // console.log(user);
 

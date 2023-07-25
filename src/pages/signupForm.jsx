@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { createUser } from "../services/user/userService";
+import { useAuth } from "../context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { colors } from "../styles";
 import { typography } from "../styles";
@@ -57,6 +57,7 @@ const InputWrapper = styled.div`
 
 function SignUpForm() {
   const { role } = useParams();
+  const { signup } = useAuth();
   const [formData, setFormData] = useState({
     role: `${role}`,
     name: "",
@@ -87,8 +88,8 @@ function SignUpForm() {
     navigate("/role");
   }
 
-  function handleSubmit(event) {
-    createUser(formData);
+  function handleSubmit() {
+    signup(formData);
     navigate("/home");
   }
 

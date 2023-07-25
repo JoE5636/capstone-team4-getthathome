@@ -73,6 +73,16 @@ const Modal = styled.div`
   z-index: 1;
 `;
 
+const Favorite = styled.a`
+  border: none;
+  cursor: pointer;
+  background-color: ${colors.white};
+  color: ${colors.gray[400]};
+  &:active {
+    color: ${colors.pink[400]};
+  }
+`;
+
 const Option = ({ property, onLoginClick }) => {
   const { user } = useAuth();
   const { setFavorites } = useFavorites();
@@ -103,13 +113,13 @@ const Option = ({ property, onLoginClick }) => {
               <Button type="primary" rounded>
                 CONTACT ADVERTISER
               </Button>
-              <a
+              <Favorite
                 onClick={() => {
                   setFavorites(property);
                 }}
               >
                 <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
-              </a>
+              </Favorite>
               <p>Add to favorites</p>
             </OptionContent>
           ) : null}

@@ -57,6 +57,7 @@ function Footer() {
               <a
                 style={{ textDecoration: "none", color: `${colors.black}` }}
                 href="https://github.com/JoE5636"
+                target="_blank"
               >
                 Joel
               </a>
@@ -65,7 +66,8 @@ function Footer() {
               <img style={{ width: "20px", height: "20px" }} src={Github}></img>
               <a
                 style={{ textDecoration: "none", color: `${colors.black}` }}
-                href="https://github.com/JoE5636"
+                href="https://github.com/opaucarq"
+                target="_blank"
               >
                 Oliver
               </a>
@@ -74,7 +76,8 @@ function Footer() {
               <img style={{ width: "20px", height: "20px" }} src={Github}></img>
               <a
                 style={{ textDecoration: "none", color: `${colors.black}` }}
-                href="https://github.com/JoE5636"
+                href="https://github.com/diegolopex"
+                target="_blank"
               >
                 Diego
               </a>
@@ -84,6 +87,7 @@ function Footer() {
               <a
                 style={{ textDecoration: "none", color: `${colors.black}` }}
                 href="https://github.com/JoE5636"
+                target="_blank"
               >
                 Eduardo
               </a>

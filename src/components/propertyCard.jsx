@@ -12,6 +12,7 @@ import { useAuth } from "../context/authContext";
 const CardContainer = styled.div`
   margin: 10px;
   width: 300px;
+  height: 340px;
   border-radius: 8px;
   box-shadow: 0px 0px 5px 4px rgba(0, 0, 0, 0.1);
 `;

@@ -1,7 +1,15 @@
 import apiFetch from "../api-fetch";
 
-export async function showFavorite(id, body) {
-  const data = await apiFetch(`/properties/${id}`, { method: "PATCH", body });
+export async function changeFavorite(id, body) {
+  const data = await apiFetch(`props/${id}`, { method: "PATCH", body });
   console.log(await data);
   //return data;
 }
+
+export const fetchFavorites = async () => {
+  const data = await apiFetch("props", { method: "GET" });
+
+  console.log(data);
+
+  return data;
+};

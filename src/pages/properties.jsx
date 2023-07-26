@@ -1,25 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { colors } from "../styles";
-// import { getUser } from "../services/user/userService";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Button from "../components/button";
 import { useAuth } from "../context/authContext";
 import { useFavorites } from "../context/favoriteContext";
 import PropertyCard from "../components/propertyCard";
-import { PropertiesWrapper } from "./propertyList";
 
 const NavStyledContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
   padding-top: 10px;
 `;
 const NavStyledWrapper = styled.div`
   width: 1190px;
-  height: 100vh;
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -51,6 +46,18 @@ const Subrayado = styled.div`
 `;
 
 const NavStyledContent = styled.div``;
+
+export const PropertiesWrapper = styled.div`
+  margin-left: auto;
+  margin-ight: auto;
+  width: 1190px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  flex-direction: row;
+  gap: 16px 0px;
+  flex-wrap: wrap;
+`;
 
 const NavStyled = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
@@ -137,41 +144,18 @@ const NavStyled = () => {
 
 const Properties = () => {
   const { favorites } = useFavorites();
-  console.log({ favorites })
+  const { user } = useAuth();
+  console.log(favorites);
   return (
     <>
       <Header />
       <NavStyled />
       <PropertiesWrapper>
-        {favorites.map((property) => {
-          const {
-            id,
-            operation,
-            photos,
-            price,
-            address,
-            bedrooms,
-            bathrooms,
-            area,
-            category,
-            pets,
-          } = property;
-
-          const propertyProps = {
-            id,
-            operation,
-            category,
-            photos,
-            price,
-            address,
-            bedrooms,
-            bathrooms,
-            area,
-            pets,
-          };
-
-          return <PropertyCard key={property.id} {...propertyProps} />;
-        })}
+        {user.role === 2
+          ? favorites.map((property) => {
+              return <PropertyCard key={property.id} {...property} />;
+            })
+          : null}
       </PropertiesWrapper>
       <Footer />
     </>

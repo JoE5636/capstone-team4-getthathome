@@ -7,6 +7,7 @@ import { SlClose } from "react-icons/sl";
 import { FaPaw } from "react-icons/fa";
 import { colors } from "../styles";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 
 const CardContainer = styled.div`
   margin: 10px;
@@ -49,7 +50,7 @@ const ForSale = styled.span`
 `;
 
 const CardImg = styled.img`
-  cursor:pointer;
+  cursor: pointer;
   width: 300px;
   height: 200px;
   border-top-left-radius: 8px;
@@ -127,12 +128,12 @@ function PropertyCard({
   bathrooms,
   area,
   pets,
-  rol=0
 }) {
+  const { user } = useAuth();
 
   const str = address;
-  const firstCommaIndex = str.indexOf(',');
-  let array = []
+  const firstCommaIndex = str.indexOf(",");
+  let array = [];
   if (firstCommaIndex !== -1) {
     const firstPart = str.slice(0, firstCommaIndex);
     const secondPart = str.slice(firstCommaIndex + 1).trim();
@@ -157,7 +158,7 @@ function PropertyCard({
         <TypeContainer>
           <PropertyInfo>
             <ImCoinDollar></ImCoinDollar>
-            <p>{price }</p>
+            <p>{price}</p>
           </PropertyInfo>
           <PropertyInfo>
             <RiBuildingLine></RiBuildingLine>
@@ -184,7 +185,7 @@ function PropertyCard({
           <Pills>{pets ? <FaPaw /> : null}</Pills>
         </PillsContainer>
       </InfoContainer>
-      {rol === 0 ? <></> :
+      {user && user.role === 1 ? (
         <ActionContainer>
           <ActionSpan>
             <BiEdit />
@@ -195,7 +196,9 @@ function PropertyCard({
             Close
           </ActionSpan>
         </ActionContainer>
-      }
+      ) : (
+        <></>
+      )}
     </CardContainer>
   );
 }

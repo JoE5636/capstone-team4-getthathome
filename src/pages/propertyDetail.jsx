@@ -86,7 +86,8 @@ const Option = ({ property, onLoginClick }) => {
 
   function handleFavorites(property) {
     console.log(property.id);
-    changeFavorite(property.id, { body: { favorite: true } })
+    const favoriteValue = { favorite: true };
+    changeFavorite(property.id, favoriteValue)
       .then((data) => {
         console.log(data);
       })

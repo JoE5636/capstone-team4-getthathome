@@ -11,8 +11,6 @@ import Checkbox from "../components/checkbox";
 import Button from "../components/button";
 import Footer from "../components/footer";
 import Header from "../components/header";
-import { createProperty2 } from "../services/properties/properties.service";
-import axios from 'axios';
 import { tokenKey } from "../config";
 
 const Container = styled.div`

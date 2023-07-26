@@ -118,7 +118,7 @@ const MoreOptions = ({ modalIsOpen, setModalIsOpen, initialState, setModalData }
 
   const handleAreaRangeChange = (event) => {
     const { name, value } = event.target;
-    setAreaRange({ ...areaRange, [name]: value });
+    setAreaRange({ ...areaRange, [name]: parseInt(value) });
   };
 
   const handleDoneAction = () => {

@@ -122,21 +122,21 @@ function PropertiesList() {
           : !modalData.beds.baths
             ? 0
             : modalData.beds.baths;
+
         let { min, max } = modalData.price;
         if (!min) min = 0;
         if (!max) max = 1000000;
         if (isPetChecked && !property.pets) {
           return false;
         }
-
-        const area = modalData.more.areaRange;
-        if (!area.min) area.min = 0;
-        if (!area.max) area.max = 1000000;
-
+        
+        let { min: areaMin, max: areaMax } = modalData.more.areaRange;
+        if (!areaMin) areaMin = 0;
+        if (!areaMax) areaMax = 1000000;
+        
         if (isPetChecked && !property.pets) {
           return false;
         }
-
         // if (isHouseChecked && isApartmentChecked) {
         //   return true;
         // }
@@ -155,8 +155,8 @@ function PropertiesList() {
           return false;
         }
         if (
-          property.area < parseInt(area.min) ||
-          property.area > parseInt(area.max)
+          property.area < parseInt(areaMin) ||
+          property.area > parseInt(areaMax)
         ) {
           return false;
         }

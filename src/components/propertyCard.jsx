@@ -129,6 +129,16 @@ function PropertyCard({
   pets,
   rol=0
 }) {
+
+  const str = address;
+  const firstCommaIndex = str.indexOf(',');
+  let array = []
+  if (firstCommaIndex !== -1) {
+    const firstPart = str.slice(0, firstCommaIndex);
+    const secondPart = str.slice(firstCommaIndex + 1).trim();
+    array = [firstPart, secondPart];
+  }
+
   return (
     <CardContainer>
       <div>
@@ -155,7 +165,8 @@ function PropertyCard({
           </PropertyInfo>
         </TypeContainer>
         <AddressInfo>
-          <p>{address}</p>
+          <p>{array[0]}</p>
+          <p>{array[1]}</p>
         </AddressInfo>
         <PillsContainer>
           <Pills>

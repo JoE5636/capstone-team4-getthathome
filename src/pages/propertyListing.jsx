@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { colors } from "../styles";
 import { typography } from "../styles";
 import { BiSearch } from "react-icons/bi";
@@ -11,7 +11,9 @@ import Checkbox from "../components/checkbox";
 import Button from "../components/button";
 import Footer from "../components/footer";
 import Header from "../components/header";
-import { createProperty } from "../services/properties/properties.service";
+import { createProperty2 } from "../services/properties/properties.service";
+import axios from 'axios';
+import { tokenKey } from "../config";
 
 const Container = styled.div`
   width: 1200px;
@@ -91,10 +93,11 @@ function PropertyListing() {
   const [isRenting, setisRenting] = useState(true);
   const [photos, setPhotos] = useState([]);
   const [checked, setChecked] = useState([]);
+  const imagesRef = useRef([])
   const [formData, setFormData] = useState({
     operation: "",
     address: "",
-    category: checked,
+    category: "",
     price: 0,
     maintenance: 0,
     pets: false,
@@ -102,20 +105,49 @@ function PropertyListing() {
     bathrooms: 0,
     area: 0,
     description: "",
+    photos:[]
   });
 
-
-  console.log(photos);
-
   const handlePhotoChange = (event) => {
-    const files = Array.from(event.target.files);
-    setPhotos(files);
+    // setPhotos(event.target.files);
+    console.log(event.target.files)
+
+    setFormData({ ...formData, photos: event.target.files })
+    // console.log({ ...formData, ...photos });
   };
 
-  const handleSubmit = () => {
-    console.log({ ...formData, ...photos });
+  const handleSubmit = async () => {
 
-    createProperty({ ...formData, ...photos });
+    const formDat = new FormData();
+    formDat.append('property[operation]', isRenting ? 'rent' : 'sale');
+    formDat.append('property[address]', formData.address);
+    formDat.append('property[category]', formData.category);
+    formDat.append('property[price]', formData.price);
+    formDat.append('property[maintenance]', formData.maintenance);
+    formDat.append('property[pets]', formData.pets);
+    formDat.append('property[bedrooms]', formData.bedrooms);
+    formDat.append('property[bathrooms]', formData.bathrooms);
+    formDat.append('property[area]', formData.area);
+    formDat.append('property[description]', formData.description);
+    // formDat.append('photos', formData.photos);
+
+    for (let i = 0; i < formData.photos.length; i++) {
+      formDat.append('property[photos][]', formData.photos[i]);
+    }
+
+    const token = sessionStorage.getItem(tokenKey);
+    try {
+      const response = await fetch("http://127.0.0.1:3000/props", {
+        method: "POST",
+        body: formDat,
+        headers: {
+          'Authorization': `${token}`,
+        },
+      }).then(console.log);
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleChange = (event) => {
@@ -139,6 +171,7 @@ function PropertyListing() {
   const onSelect = ({ target: { value } }) => {
     setChecked(value);
     setFormData({ ...formData, category: value });
+    console.log(formData)
   };
 
   const handleSelectChange = (selectedOption, field) => {

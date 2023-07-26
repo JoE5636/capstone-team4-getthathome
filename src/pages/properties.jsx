@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useNavigate } from "react-router-dom";
 import { AiOutlinePlusCircle } from "react-icons/ai";
@@ -7,7 +7,7 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import Button from "../components/button";
 import { useAuth } from "../context/authContext";
-import { useFavorites } from "../context/favoriteContext";
+import { fetchFavorites } from "../services/favorites/favoritesService";
 import PropertyCard from "../components/propertyCard";
 
 const NavStyledContainer = styled.div`
@@ -20,7 +20,6 @@ const NavStyledWrapper = styled.div`
   display: flex;
   ${"" /* align-items: center; */}
   flex-direction: column;
-
   background-color: ${colors.white};
 `;
 const NavStyledOptions = styled.ul`
@@ -51,6 +50,7 @@ export const PropertiesWrapper = styled.div`
   margin-left: auto;
   margin-ight: auto;
   width: 1190px;
+  height: auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
@@ -59,7 +59,7 @@ export const PropertiesWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const NavStyled = () => {
+const Properties = () => {
   const [selectedOption, setSelectedOption] = useState("opcion1");
   const { user } = useAuth();
 
@@ -71,89 +71,123 @@ const NavStyled = () => {
   function handleNewPropertyClick() {
     navigate("/create");
   }
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    fetchFavorites()
+      .then((data) => {
+        setFavorites(data);
+        console.log(favorites);
+      })
+      .catch((error) => {
+        console.error("Error fetching favorites:", error);
+      });
+  }, []);
+
+  console.log(favorites);
   return (
-    <NavStyledContainer>
-      <NavStyledWrapper>
-        {user?.role === 2 && (
-          <NavStyledOptions>
-            <NavStyleOption
-              isSelected={selectedOption === "opcion1"}
-              onClick={() => handleOptionChange("opcion1")}
-            >
-              FAVORITES
-              <Subrayado isSelected={selectedOption === "opcion1"} />
-            </NavStyleOption>
-            <NavStyleOption
-              isSelected={selectedOption === "opcion2"}
-              onClick={() => handleOptionChange("opcion2")}
-            >
-              CONTACTED
-              <Subrayado isSelected={selectedOption === "opcion2"} />
-            </NavStyleOption>
-          </NavStyledOptions>
-        )}
-        {user?.role === 1 && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            }}
-          >
-            <Button type="primary" rounded onClick={handleNewPropertyClick}>
-              <AiOutlinePlusCircle style={{ width: "24px", height: "24px" }} />
-              NEW PROPERTY
-            </Button>
+    <>
+      <Header />
+      <NavStyledContainer>
+        <NavStyledWrapper>
+          {user?.role === 2 && (
             <NavStyledOptions>
               <NavStyleOption
                 isSelected={selectedOption === "opcion1"}
                 onClick={() => handleOptionChange("opcion1")}
               >
-                ACTIVE
+                FAVORITES
                 <Subrayado isSelected={selectedOption === "opcion1"} />
               </NavStyleOption>
               <NavStyleOption
                 isSelected={selectedOption === "opcion2"}
                 onClick={() => handleOptionChange("opcion2")}
               >
-                CLOSED
+                CONTACTED
                 <Subrayado isSelected={selectedOption === "opcion2"} />
               </NavStyleOption>
             </NavStyledOptions>
-          </div>
-        )}
+          )}
+          {user?.role === 1 && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
+            >
+              <Button type="primary" rounded onClick={handleNewPropertyClick}>
+                <AiOutlinePlusCircle
+                  style={{ width: "24px", height: "24px" }}
+                />
+                NEW PROPERTY
+              </Button>
+              <NavStyledOptions>
+                <NavStyleOption
+                  isSelected={selectedOption === "opcion1"}
+                  onClick={() => handleOptionChange("opcion1")}
+                >
+                  ACTIVE
+                  <Subrayado isSelected={selectedOption === "opcion1"} />
+                </NavStyleOption>
+                <NavStyleOption
+                  isSelected={selectedOption === "opcion2"}
+                  onClick={() => handleOptionChange("opcion2")}
+                >
+                  CLOSED
+                  <Subrayado isSelected={selectedOption === "opcion2"} />
+                </NavStyleOption>
+              </NavStyledOptions>
+            </div>
+          )}
 
-        {user?.role === 2 && (
-          <NavStyledContent>
-            {selectedOption === "opcion1" ? (
-              <h1>Favorites</h1>
-            ) : (
-              <h1>Contacted</h1>
-            )}
-          </NavStyledContent>
-        )}
-        {user?.role === 1 && (
-          <NavStyledContent>
-            {selectedOption === "opcion1" ? <h1>Active</h1> : <h1>Closed</h1>}
-          </NavStyledContent>
-        )}
-      </NavStyledWrapper>
-    </NavStyledContainer>
-  );
-};
-
-const Properties = () => {
-  const { favorites } = useFavorites();
-  const { user } = useAuth();
-  console.log(favorites);
-  return (
-    <>
-      <Header />
-      <NavStyled />
+          {user?.role === 2 && (
+            <NavStyledContent>
+              {selectedOption === "opcion1" ? (
+                <h1>Favorites</h1>
+              ) : (
+                <h1>Contacted</h1>
+              )}
+            </NavStyledContent>
+          )}
+          {user?.role === 1 && (
+            <NavStyledContent>
+              {selectedOption === "opcion1" ? <h1>Active</h1> : <h1>Closed</h1>}
+            </NavStyledContent>
+          )}
+        </NavStyledWrapper>
+      </NavStyledContainer>
       <PropertiesWrapper>
-        {user.role === 2
+        {user?.role === 1 && selectedOption === "opcion1"
           ? favorites.map((property) => {
-              return <PropertyCard key={property.id} {...property} />;
+              if (property.property.active === true) {
+                console.log(property);
+                return <PropertyCard key={property.id} {...property} />;
+              }
+            })
+          : null}
+        {user?.role === 1 && selectedOption === "opcion2"
+          ? favorites.map((property) => {
+              if (property.property.active === false) {
+                console.log(property);
+                return <PropertyCard key={property.id} {...property} />;
+              }
+            })
+          : null}
+        {user?.role === 2 && selectedOption === "opcion1"
+          ? favorites.map((property) => {
+              if (property.property.favorite === true) {
+                console.log(property);
+                return <PropertyCard key={property.id} {...property} />;
+              }
+            })
+          : null}
+        {user?.role === 2 && selectedOption === "opcion2"
+          ? favorites.map((property) => {
+              if (property.property.contacted === true) {
+                console.log(property);
+                return <PropertyCard key={property.id} {...property} />;
+              }
             })
           : null}
       </PropertiesWrapper>

@@ -16,9 +16,7 @@ import LoginModal from "../components/loginModal";
 import Button from "../components/button";
 import { colors } from "../styles";
 import { useAuth } from "../context/authContext";
-import { useFavorites } from "../context/favoriteContext";
-
-// import depaImg from "../assets/depa1.png";
+import { changeFavorite } from "../services/favorites/favoritesService";
 
 const Container = styled.div`
   display: flex;
@@ -85,7 +83,17 @@ const Favorite = styled.a`
 
 const Option = ({ property, onLoginClick }) => {
   const { user } = useAuth();
-  const { handleFavorites } = useFavorites();
+
+  function handleFavorites(property) {
+    console.log(property.id);
+    changeFavorite(property.id, { body: { favorite: true } })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching favorites:", error);
+      });
+  }
 
   return (
     <>

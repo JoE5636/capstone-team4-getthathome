@@ -12,7 +12,7 @@ import PriceButton from "../components/priceButton";
 import PropertyType from "../components/propertyType";
 import SearchOption from "../components/searchOption";
 import PropertyCard from "../components/propertyCard";
-import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs"
+import { BsCaretLeftSquareFill, BsCaretRightSquareFill } from "react-icons/bs";
 
 const Container = styled.div`
   width: 100vw;
@@ -39,7 +39,7 @@ const MainWrapper = styled.div`
   }
 `;
 
-export const PropertiesWrapper = styled.div`
+const PropertiesWrapper = styled.div`
   width: 1190px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -62,11 +62,9 @@ const ButtonsWrapper = styled.div`
   gap: 16px;
 `;
 
-const PropertyPage = () =>{
-  return(
-    <></>
-  )
-}
+const PropertyPage = () => {
+  return <></>;
+};
 
 function PropertiesList() {
   const initialState = {
@@ -94,7 +92,7 @@ function PropertiesList() {
 
   const [page, setPage] = useState(1);
   const max = 6;
-  const pages = 1 + parseInt(propertiesFiltered.length / 6)
+  const pages = 1 + parseInt(propertiesFiltered.length / 6);
   const numbers = Array.from({ length: pages }, (_, index) => index + 1);
   useEffect(() => {
     (async () => {
@@ -115,13 +113,13 @@ function PropertiesList() {
         const amountBed = !modalData.beds
           ? 0
           : !modalData.beds.beds
-            ? 0
-            : modalData.beds.beds;
+          ? 0
+          : modalData.beds.beds;
         const amountBath = !modalData.beds
           ? 0
           : !modalData.beds.baths
-            ? 0
-            : modalData.beds.baths;
+          ? 0
+          : modalData.beds.baths;
 
         let { min, max } = modalData.price;
         if (!min) min = 0;
@@ -129,11 +127,11 @@ function PropertiesList() {
         if (isPetChecked && !property.pets) {
           return false;
         }
-        
+
         let { min: areaMin, max: areaMax } = modalData.more.areaRange;
         if (!areaMin) areaMin = 0;
         if (!areaMax) areaMax = 1000000;
-        
+
         if (isPetChecked && !property.pets) {
           return false;
         }
@@ -246,35 +244,37 @@ function PropertiesList() {
             />
           </FiltersWrapper>
           <PropertiesWrapper>
-            {propertiesFiltered.slice((page-1)*max, (page*max)).map((property) => {
-              const {
-                id,
-                operation,
-                photos,
-                price,
-                address,
-                bedrooms,
-                bathrooms,
-                area,
-                category,
-                pets,
-              } = property;
+            {propertiesFiltered
+              .slice((page - 1) * max, page * max)
+              .map((property) => {
+                const {
+                  id,
+                  operation,
+                  photos,
+                  price,
+                  address,
+                  bedrooms,
+                  bathrooms,
+                  area,
+                  category,
+                  pets,
+                } = property;
 
-              const propertyProps = {
-                id,
-                operation,
-                category,
-                photos,
-                price,
-                address,
-                bedrooms,
-                bathrooms,
-                area,
-                pets,
-              };
+                const propertyProps = {
+                  id,
+                  operation,
+                  category,
+                  photos,
+                  price,
+                  address,
+                  bedrooms,
+                  bathrooms,
+                  area,
+                  pets,
+                };
 
-              return <PropertyCard key={property.id} {...propertyProps} />;
-            })}
+                return <PropertyCard key={property.id} {...propertyProps} />;
+              })}
           </PropertiesWrapper>
           <div style={{ display: "flex", alignItems: "center" }}>
             <BsCaretLeftSquareFill
@@ -288,7 +288,11 @@ function PropertiesList() {
               {numbers.map((number) => (
                 <button
                   key={number}
-                  style={{ backgroundColor: number === page ? '#aaa' : '', width:"30px", height:"30px" }}
+                  style={{
+                    backgroundColor: number === page ? "#aaa" : "",
+                    width: "30px",
+                    height: "30px",
+                  }}
                   onClick={() => setPage(number)}
                 >
                   {number}

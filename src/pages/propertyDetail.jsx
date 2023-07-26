@@ -85,7 +85,7 @@ const Favorite = styled.a`
 
 const Option = ({ property, onLoginClick }) => {
   const { user } = useAuth();
-  const { setFavorites } = useFavorites();
+  const { handleFavorites } = useFavorites();
 
   return (
     <>
@@ -115,7 +115,7 @@ const Option = ({ property, onLoginClick }) => {
               </Button>
               <Favorite
                 onClick={() => {
-                  setFavorites(property);
+                  handleFavorites(property);
                 }}
               >
                 <AiOutlineHeart style={{ width: "30px", height: "30px" }} />
@@ -293,6 +293,8 @@ function PropertyDetail() {
     return <div></div>;
   }
 
+  // console.log(properties);
+
   function handleLoginClick() {
     setIsOpenLogModal(true);
   }
@@ -315,7 +317,7 @@ function PropertyDetail() {
     navigate("/role");
   }
 
-  console.log("Images:", properties.photos);
+  // console.log("Images:", properties.photos);
 
   return (
     <>
